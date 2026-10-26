@@ -1,7 +1,6 @@
-import "./style.css";
-import { initialDeadlines, initialProjects } from "./data";
+﻿import "./style.css";
 import { initProjectForm } from "./form";
-import { renderDeadlines, renderProjects } from "./render";
+import { renderProjects } from "./render";
 import { loadProjects, saveProjects } from "./storage";
 import type { Project, ProjectFilter } from "./types";
 import { initAnnouncement, initNavigation } from "./ui";
@@ -19,7 +18,7 @@ const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[
 const isProjectFilter = (value: string): value is ProjectFilter =>
   value === "all" || value === "active" || value === "done";
 
-let projects: Project[] = loadProjects(initialProjects);
+let projects: Project[] = loadProjects([]);
 let activeFilter: ProjectFilter = "all";
 
 const syncActiveProjectCount = (): void => {
@@ -97,7 +96,6 @@ projectGrid.addEventListener("click", (event) => {
 
 syncFilterButtons();
 renderVisibleProjects();
-renderDeadlines(initialDeadlines, deadlineList);
 initProjectForm(handleAddProject);
 initNavigation();
 initAnnouncement();
