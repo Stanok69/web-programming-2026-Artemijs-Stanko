@@ -1,7 +1,7 @@
 import { isProject } from "./guards";
 import type { Project } from "./types";
 
-const STORAGE_KEY = "campusflow.projects";
+const STORAGE_KEY = "campusflow.week03.localProjects";
 
 export const loadProjects = (fallback: Project[]): Project[] => {
   const stored = localStorage.getItem(STORAGE_KEY);

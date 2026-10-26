@@ -1,4 +1,11 @@
-import type { Category, Deadline, DeadlineTone, Project, ProjectStatus } from "./types";
+import type {
+  Category,
+  Deadline,
+  DeadlineTone,
+  LoadState,
+  Project,
+  ProjectStatus,
+} from "./types";
 
 const categoryBadge: Record<Category, string> = {
   Frontend: "bg-[#f0edff] text-[#6352ed]",
@@ -45,6 +52,13 @@ const months = [
   "Dec",
 ];
 
+const projectLoadingClass =
+  "col-span-full rounded-[18px] border border-line bg-white p-6 text-center text-[13px] font-semibold text-muted";
+const projectErrorClass =
+  "col-span-full rounded-[18px] border border-[#f0d3d3] bg-[#fdf5f5] p-5 text-center";
+const projectEmptyClass =
+  "col-span-full rounded-[18px] border border-dashed border-line bg-white p-8 text-center";
+
 const createElement = <K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className: string,
@@ -85,7 +99,57 @@ const formatDate = (date: string): string => {
   return `${readableMonth} ${day}`;
 };
 
-const createProjectCard = (project: Project): HTMLElement => {
+const createStatusBlock = (message: string, className: string): HTMLElement => {
+  const block = createElement("div", className, message);
+  block.setAttribute("role", "status");
+
+  return block;
+};
+
+const createErrorBlock = (
+  title: string,
+  message: string,
+  className: string,
+  onRetry: () => void,
+): HTMLElement => {
+  const block = createElement("div", className);
+  block.setAttribute("role", "alert");
+
+  const retryButton = createElement(
+    "button",
+    "mt-3 rounded-[10px] bg-brand px-3.5 py-2 text-[11px] font-extrabold text-white transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
+    "Try again",
+  );
+  retryButton.type = "button";
+  retryButton.addEventListener("click", onRetry);
+
+  block.append(
+    createElement("strong", "block text-[13px] text-[#a33a3a]", title),
+    createElement("p", "mt-1 text-[12px] text-[#8a5b5b]", message),
+    retryButton,
+  );
+
+  return block;
+};
+
+const createEmptyProjects = (): HTMLElement => {
+  const wrapper = createElement("div", projectEmptyClass);
+  wrapper.append(
+    createElement("strong", "text-sm", "No projects here yet"),
+    createElement(
+      "p",
+      "mt-1.5 text-[12px] text-muted",
+      "Try another filter or add a new project below.",
+    ),
+  );
+
+  return wrapper;
+};
+
+const createEmptyDeadlines = (): HTMLElement =>
+  createElement("p", "px-2 py-[14px] text-[13px] text-muted", "No upcoming deadlines.");
+
+const createProjectCard = (project: Project, canDelete: boolean): HTMLElement => {
   const card = createElement(
     "article",
     "group rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card",
@@ -141,47 +205,61 @@ const createProjectCard = (project: Project): HTMLElement => {
   );
   link.href = "#";
 
-  const deleteButton = createElement(
-    "button",
-    "rounded text-[11px] font-bold text-muted transition hover:text-[#c64444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
-    "Delete",
-  );
-  deleteButton.type = "button";
-  deleteButton.dataset.action = "delete";
-  deleteButton.setAttribute("aria-label", `Delete ${project.title}`);
-
   const actions = createElement("div", "mt-[18px] flex items-center justify-between gap-3");
-  actions.append(link, deleteButton);
+  actions.append(link);
+
+  if (canDelete) {
+    const deleteButton = createElement(
+      "button",
+      "rounded text-[11px] font-bold text-muted transition hover:text-[#c64444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
+      "Delete",
+    );
+    deleteButton.type = "button";
+    deleteButton.dataset.action = "delete";
+    deleteButton.setAttribute("aria-label", `Delete ${project.title}`);
+    actions.append(deleteButton);
+  }
 
   card.append(badges, title, description, progressRow, progressTrack, actions);
 
   return card;
 };
 
-const createEmptyState = (): HTMLElement => {
-  const wrapper = createElement(
-    "div",
-    "col-span-full rounded-[18px] border border-dashed border-line bg-white p-8 text-center",
-  );
-  wrapper.append(
-    createElement("strong", "text-sm", "No projects here yet"),
-    createElement(
-      "p",
-      "mt-1.5 text-[12px] text-muted",
-      "Try another filter or add a new project below.",
-    ),
-  );
+export const renderProjects = (
+  state: LoadState<Project[]>,
+  container: HTMLElement,
+  onRetry: () => void,
+  localProjectIds: ReadonlySet<string>,
+): void => {
+  switch (state.status) {
+    case "loading":
+      container.replaceChildren(createStatusBlock("Loading projects…", projectLoadingClass));
+      return;
+    case "error":
+      container.replaceChildren(
+        createErrorBlock(
+          "Projects could not be loaded.",
+          state.message,
+          projectErrorClass,
+          onRetry,
+        ),
+      );
+      return;
+    case "success":
+      if (state.data.length === 0) {
+        container.replaceChildren(createEmptyProjects());
+        return;
+      }
 
-  return wrapper;
-};
-
-export const renderProjects = (projects: Project[], container: HTMLElement): void => {
-  if (projects.length === 0) {
-    container.replaceChildren(createEmptyState());
-    return;
+      container.replaceChildren(
+        ...state.data.map((project) => createProjectCard(project, localProjectIds.has(project.id))),
+      );
+      return;
+    default: {
+      const check: never = state;
+      return check;
+    }
   }
-
-  container.replaceChildren(...projects.map(createProjectCard));
 };
 
 const createDeadlineRow = (deadline: Deadline): HTMLElement => {
@@ -217,6 +295,41 @@ const createDeadlineRow = (deadline: Deadline): HTMLElement => {
   return row;
 };
 
-export const renderDeadlines = (deadlines: Deadline[], container: HTMLElement): void => {
-  container.replaceChildren(...deadlines.map(createDeadlineRow));
+export const renderDeadlines = (
+  state: LoadState<Deadline[]>,
+  container: HTMLElement,
+  onRetry: () => void,
+): void => {
+  switch (state.status) {
+    case "loading":
+      container.replaceChildren(
+        createStatusBlock(
+          "Loading deadlines…",
+          "block px-2 py-[14px] text-[13px] font-semibold text-muted",
+        ),
+      );
+      return;
+    case "error":
+      container.replaceChildren(
+        createErrorBlock(
+          "Deadlines could not be loaded.",
+          state.message,
+          "rounded-[13px] border border-[#f0d3d3] bg-[#fdf5f5] p-4 text-center",
+          onRetry,
+        ),
+      );
+      return;
+    case "success":
+      if (state.data.length === 0) {
+        container.replaceChildren(createEmptyDeadlines());
+        return;
+      }
+
+      container.replaceChildren(...state.data.map(createDeadlineRow));
+      return;
+    default: {
+      const check: never = state;
+      return check;
+    }
+  }
 };

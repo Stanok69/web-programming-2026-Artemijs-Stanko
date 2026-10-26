@@ -19,6 +19,18 @@ const getJson = async (url: string): Promise<unknown> => {
   }
 };
 
+export const describeError = (error: unknown): string => {
+  if (error instanceof TypeError) {
+    return "The server could not be reached. Check your connection and try again.";
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Something unexpected happened. Please try again.";
+};
+
 const isProjectList = (value: unknown): value is Project[] =>
   Array.isArray(value) && value.every(isProject);
 
