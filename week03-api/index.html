@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CampusFlow — a student workspace for projects, deadlines, and learning resources."
+    />
+    <title>CampusFlow Dashboard</title>
+  </head>
+  <body class="bg-canvas font-sans text-ink antialiased selection:bg-brand/20">
+    <header
+      class="sticky top-0 z-50 border-b border-line/90 bg-white/90 backdrop-blur-md max-sm:relative"
+    >
+      <div
+        class="mx-auto flex min-h-[72px] w-full max-w-[1180px] items-center gap-7 px-5 max-sm:px-3.5"
+      >
+        <a
+          class="inline-flex items-center gap-2.5 rounded-lg font-extrabold tracking-[-0.02em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          href="#"
+        >
+          <span
+            class="grid size-[38px] place-items-center rounded-xl bg-linear-to-br from-brand to-[#8a7dff] text-[13px] text-white shadow-[0_8px_20px_rgba(109,93,252,0.28)]"
+            >CF</span
+          >
+          <span>CampusFlow</span>
+        </a>
+
+        <button
+          id="menuButton"
+          type="button"
+          class="ml-auto grid size-[42px] place-items-center rounded-[10px] p-[9px] text-ink transition hover:bg-[#f1f3f8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:hidden"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="mainNav"
+        >
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+        </button>
+
+        <nav
+          id="mainNav"
+          class="absolute inset-x-5 top-[72px] z-50 hidden flex-col gap-1 rounded-2xl border border-line bg-white p-2.5 shadow-card data-[open=true]:flex md:static md:inset-auto md:ml-[18px] md:flex md:flex-row md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            data-active="true"
+            aria-current="page"
+            href="#"
+            >Dashboard</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#projects"
+            >Projects</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#deadlines"
+            >Deadlines</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#resources"
+            >Resources</a
+          >
+        </nav>
+
+        <div class="flex items-center gap-2.5 md:ml-auto">
+          <div
+            class="grid size-[38px] place-items-center rounded-full bg-ink text-xs font-extrabold text-white"
+          >
+            AZ
+          </div>
+          <div class="grid gap-px max-sm:hidden">
+            <strong class="text-[13px]">Alex Student</strong>
+            <span class="text-[11px] text-muted">Web Programming</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mx-auto w-full max-w-[1180px] px-5 pt-6 max-sm:px-3.5">
+      <div
+        id="announcement"
+        class="flex items-start gap-3 rounded-2xl border border-brand/20 bg-brand-soft/70 px-4 py-3.5 shadow-soft sm:items-center"
+      >
+        <span
+          class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-linear-to-br from-brand to-[#8a7dff] text-[9px] font-extrabold text-white sm:mt-0"
+          aria-hidden="true"
+          >NEW</span
+        >
+        <p class="flex-1 text-[13px] leading-relaxed">
+          <strong class="font-extrabold">Tailwind migration is live.</strong>
+          CampusFlow now runs on Vite and Tailwind CSS utilities — the same layout with cleaner
+          styles.
+        </p>
+        <button
+          id="announcementClose"
+          type="button"
+          class="grid size-8 shrink-0 place-items-center rounded-lg text-lg leading-none text-muted transition hover:bg-white hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          aria-label="Dismiss announcement"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <main>
+      <section
+        class="bg-[radial-gradient(circle_at_15%_10%,rgba(109,93,252,0.14),transparent_34%),radial-gradient(circle_at_85%_0%,rgba(55,136,255,0.10),transparent_28%)] pt-16 pb-12 max-sm:pt-[42px]"
+      >
+        <div
+          class="mx-auto grid w-full max-w-[1180px] items-center gap-14 px-5 max-md:gap-7 max-sm:px-3.5 min-[960px]:grid-cols-[1.4fr_0.8fr]"
+        >
+          <div>
+            <span class="mb-2.5 block text-[11px] font-extrabold tracking-[0.14em] text-brand"
+              >MONDAY WORKSPACE</span
+            >
+            <h1
+              class="max-w-[760px] text-[clamp(42px,6vw,72px)] leading-[0.98] font-bold tracking-[-0.055em] max-sm:text-[43px]"
+            >
+              Build, learn, and ship
+              <span class="bg-linear-to-r from-brand to-[#8a7dff] bg-clip-text text-transparent"
+                >something useful.</span
+              >
+            </h1>
+            <p class="mt-6 max-w-[650px] text-lg text-muted max-sm:text-base">
+              Track your current web-development tasks, upcoming deadlines, and project progress
+              in one place.
+            </p>
+            <div class="mt-[30px] flex flex-wrap gap-3 max-sm:grid">
+              <a
+                class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand px-[18px] text-sm font-bold text-white shadow-[0_12px_24px_rgba(109,93,252,0.24)] transition duration-150 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 max-sm:w-full"
+                href="#projects"
+                >View projects</a
+              >
+              <a
+                class="inline-flex min-h-11 items-center justify-center rounded-xl border border-line bg-white px-[18px] text-sm font-bold transition duration-150 hover:-translate-y-px hover:shadow-[0_10px_24px_rgba(34,45,78,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 max-sm:w-full"
+                href="#resources"
+                >Open resources</a
+              >
+            </div>
+          </div>
+
+          <aside
+            class="rounded-[22px] border border-white/60 bg-white/80 p-6 shadow-card backdrop-blur-md"
+          >
+            <p class="mb-[18px] text-[13px] font-bold text-muted">This week</p>
+            <div class="mb-2 flex items-center justify-between gap-4 text-[13px]">
+              <span class="text-muted">Course progress</span>
+              <strong>68%</strong>
+            </div>
+            <div class="h-[9px] overflow-hidden rounded-full bg-[#eceef4]">
+              <div
+                class="h-full rounded-[inherit] bg-linear-to-r from-brand to-[#8e80ff]"
+                style="width: 68%"
+              ></div>
+            </div>
+            <div class="mt-6 grid grid-cols-3 gap-3 max-sm:grid-cols-1">
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">4</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Open tasks</span>
+              </div>
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">2</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Due soon</span>
+              </div>
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">7</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Completed</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
+        <div class="mb-5 flex items-end justify-between gap-6 max-sm:flex-col max-sm:items-start">
+          <div>
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">OVERVIEW</p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Your workspace</h2>
+          </div>
+          <p class="max-w-[420px] text-sm text-muted max-sm:max-w-none">
+            A quick snapshot of what needs attention today.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              01
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Active projects</p>
+              <strong id="activeProjectCount" class="block text-[26px] leading-[1.1]">3</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">
+                From your projects
+              </span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              02
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Tasks completed</p>
+              <strong class="block text-[26px] leading-[1.1]">18</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">+6 this week</span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              03
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Quiz average</p>
+              <strong class="block text-[26px] leading-[1.1]">84%</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-muted">Last 4 quizzes</span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              04
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Focus time</p>
+              <strong class="block text-[26px] leading-[1.1]">7.5h</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">
+                +12% vs last week
+              </span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
+        <div class="mb-5 flex items-center justify-between gap-6 max-sm:flex-col max-sm:items-stretch">
+          <div>
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">PROJECTS</p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Current work</h2>
+          </div>
+          <div
+            class="inline-flex gap-1 rounded-xl border border-line bg-white p-1 max-sm:w-full"
+            role="group"
+            aria-label="Project filters"
+          >
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              data-filter="all"
+              data-active="true"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              data-filter="active"
+              data-active="false"
+              aria-pressed="false"
+            >
+              Active
+            </button>
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              data-filter="done"
+              data-active="false"
+              aria-pressed="false"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+
+        <div id="projectGrid" class="grid grid-cols-1 gap-[18px] md:grid-cols-2 lg:grid-cols-3">
+        </div>
+      </section>
+
+      <section
+        id="add-project"
+        class="mx-auto w-full max-w-[1180px] px-5 pt-[14px] pb-10 max-sm:px-3.5"
+      >
+        <form id="projectForm" class="rounded-[18px] border border-line bg-white p-6" novalidate>
+          <div class="mb-5">
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">
+              NEW PROJECT
+            </p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Add a project</h2>
+            <p class="mt-2 text-[13px] text-muted">
+              New projects are stored in this browser and stay here after a reload.
+            </p>
+          </div>
+
+          <div class="grid gap-[18px] md:grid-cols-2">
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectTitle">Title</label>
+              <input
+                id="projectTitle"
+                name="title"
+                type="text"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="Responsive Portfolio"
+                aria-describedby="projectTitleError"
+              />
+              <p
+                id="projectTitleError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectCategory">Category</label>
+              <select
+                id="projectCategory"
+                name="category"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                aria-describedby="projectCategoryError"
+              >
+                <option value="">Choose a category</option>
+                <option value="Frontend">Frontend</option>
+                <option value="API">API</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Design">Design</option>
+              </select>
+              <p
+                id="projectCategoryError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5 md:col-span-2">
+              <label class="text-xs font-bold" for="projectDescription">Description</label>
+              <textarea
+                id="projectDescription"
+                name="description"
+                class="min-h-[86px] w-full resize-y rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="What should this project include?"
+                aria-describedby="projectDescriptionError"
+              ></textarea>
+              <p
+                id="projectDescriptionError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectDueDate">Due date</label>
+              <input
+                id="projectDueDate"
+                name="dueDate"
+                type="date"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                aria-describedby="projectDueDateError"
+              />
+              <p
+                id="projectDueDateError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectProgress">Progress (%)</label>
+              <input
+                id="projectProgress"
+                name="progress"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="0"
+                aria-describedby="projectProgressError"
+              />
+              <p
+                id="projectProgressError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              class="rounded-[10px] bg-brand px-4 py-2.5 text-xs font-extrabold text-white transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Add project
+            </button>
+            <button
+              type="reset"
+              class="rounded-[10px] border border-line px-4 py-2.5 text-xs font-extrabold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section
+        class="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]"
+      >
+        <section id="deadlines" class="rounded-[18px] border border-line bg-white p-6">
+          <div class="mb-5 flex items-center justify-between gap-6">
+            <div>
+              <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">
+                DEADLINES
+              </p>
+              <h2 class="text-[28px] font-bold tracking-[-0.035em]">Coming up</h2>
+            </div>
+            <a
+              class="rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+              >See all</a
+            >
+          </div>
+
+          <div id="deadlineList" class="grid gap-1">
+          </div>
+        </section>
+
+        <aside id="resources" class="rounded-[18px] border border-line bg-white p-6">
+          <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">RESOURCES</p>
+          <h2 class="text-[28px] font-bold tracking-[-0.035em]">Useful links</h2>
+          <p class="mt-2 mb-[18px] text-[13px] text-muted">
+            Keep these close while working through the project.
+          </p>
+
+          <div class="grid gap-2">
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >01</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Course repository</strong>
+                <small class="text-[10px] text-muted">Starter code and weekly tasks</small>
+              </span>
+            </a>
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >02</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Reference notes</strong>
+                <small class="text-[10px] text-muted">Quick examples and explanations</small>
+              </span>
+            </a>
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >03</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Submission guide</strong>
+                <small class="text-[10px] text-muted">Checklist before you submit</small>
+              </span>
+            </a>
+          </div>
+
+          <div class="mt-[18px] rounded-[13px] border border-[#f3e4b6] bg-[#fff8e8] p-3.5">
+            <strong class="text-[11px] text-[#9a6c16]">Tip</strong>
+            <p class="mt-1 text-[11px] text-[#735d34]">
+              Use browser DevTools while migrating the page. Compare computed styles before and
+              after each change.
+            </p>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="border-t border-line bg-white">
+      <div
+        class="mx-auto flex min-h-[74px] w-full max-w-[1180px] items-center justify-between gap-5 px-5 text-[11px] text-muted max-sm:flex-col max-sm:items-start max-sm:px-3.5 max-sm:py-[18px]"
+      >
+        <span>CampusFlow · Web Programming</span>
+        <span>Starter project for CSS → Tailwind migration</span>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
