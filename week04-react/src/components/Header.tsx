@@ -1,10 +1,21 @@
+import { useState } from "react";
+
 interface HeaderProps {
   userName: string;
   userInitials: string;
   course: string;
 }
 
+const navLinkClass =
+  "rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink";
+
 function Header({ userName, userInitials, course }: HeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const closeMenu = (): void => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-line/90 bg-white/90 backdrop-blur-md max-sm:relative">
       <div className="mx-auto flex min-h-[72px] w-full max-w-[1180px] items-center gap-7 px-5 max-sm:px-3.5">
@@ -22,8 +33,9 @@ function Header({ userName, userInitials, course }: HeaderProps) {
           type="button"
           className="ml-auto grid size-[42px] place-items-center rounded-[10px] p-[9px] text-ink transition hover:bg-[#f1f3f8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:hidden"
           aria-label="Toggle navigation"
-          aria-expanded="false"
+          aria-expanded={isMenuOpen}
           aria-controls="mainNav"
+          onClick={() => setIsMenuOpen((open) => !open)}
         >
           <span className="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
           <span className="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
@@ -32,32 +44,25 @@ function Header({ userName, userInitials, course }: HeaderProps) {
 
         <nav
           id="mainNav"
-          className="absolute inset-x-5 top-[72px] z-50 hidden flex-col gap-1 rounded-2xl border border-line bg-white p-2.5 shadow-card md:static md:inset-auto md:ml-[18px] md:flex md:flex-row md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+          className="absolute inset-x-5 top-[72px] z-50 hidden flex-col gap-1 rounded-2xl border border-line bg-white p-2.5 shadow-card data-[open=true]:flex md:static md:inset-auto md:ml-[18px] md:flex md:flex-row md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+          data-open={isMenuOpen ? "true" : "false"}
         >
           <a
-            className="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            className={navLinkClass}
             data-active="true"
             aria-current="page"
             href="#"
+            onClick={closeMenu}
           >
             Dashboard
           </a>
-          <a
-            className="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
-            href="#projects"
-          >
+          <a className={navLinkClass} href="#projects" onClick={closeMenu}>
             Projects
           </a>
-          <a
-            className="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
-            href="#deadlines"
-          >
+          <a className={navLinkClass} href="#deadlines" onClick={closeMenu}>
             Deadlines
           </a>
-          <a
-            className="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
-            href="#resources"
-          >
+          <a className={navLinkClass} href="#resources" onClick={closeMenu}>
             Resources
           </a>
         </nav>

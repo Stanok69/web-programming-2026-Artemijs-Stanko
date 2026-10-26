@@ -3,10 +3,11 @@ import DeadlineSection from "./components/DeadlineSection";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import ProjectList from "./components/ProjectList";
+import ProjectSection from "./components/ProjectSection";
 import Resources from "./components/Resources";
 import SectionHeading from "./components/SectionHeading";
 import StatCard from "./components/StatCard";
+import WeatherCard from "./components/WeatherCard";
 import type { CurrentWeather, Deadline, LoadState, Project } from "./types";
 
 interface AppProps {
@@ -67,69 +68,11 @@ function App({
               tone="positive"
             />
             <StatCard index="03" label="Quiz average" value="84%" note="Last 4 quizzes" />
-            <StatCard
-              index="04"
-              label="Rīga now"
-              value={
-                weather.status === "success"
-                  ? `${Math.round(weather.data.temperature)}°C`
-                  : weather.status === "loading"
-                    ? "…"
-                    : "–"
-              }
-              note={
-                weather.status === "success"
-                  ? `${Math.round(weather.data.windSpeed)} km/h`
-                  : weather.status === "error"
-                    ? "Weather unavailable"
-                    : "Loading weather…"
-              }
-              tone={weather.status === "error" ? "danger" : "neutral"}
-            />
+            <WeatherCard weather={weather} />
           </div>
         </section>
 
-        <section
-          id="projects"
-          className="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5"
-        >
-          <SectionHeading
-            eyebrow="PROJECTS"
-            title="Current work"
-            className="mb-5 flex items-center justify-between gap-6 max-sm:flex-col max-sm:items-stretch"
-          >
-            <div
-              className="inline-flex gap-1 rounded-xl border border-line bg-white p-1 max-sm:w-full"
-              role="group"
-              aria-label="Project filters"
-            >
-              <button
-                type="button"
-                className="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
-                data-active="true"
-                aria-pressed={true}
-              >
-                All
-              </button>
-              <button
-                type="button"
-                className="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
-                aria-pressed={false}
-              >
-                Active
-              </button>
-              <button
-                type="button"
-                className="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
-                aria-pressed={false}
-              >
-                Done
-              </button>
-            </div>
-          </SectionHeading>
-
-          <ProjectList state={projects} filter="all" onRetry={onRetryProjects} />
-        </section>
+        <ProjectSection projects={projects} onRetry={onRetryProjects} />
 
         <section className="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]">
           <DeadlineSection deadlines={deadlines} onRetry={onRetryDeadlines} />
