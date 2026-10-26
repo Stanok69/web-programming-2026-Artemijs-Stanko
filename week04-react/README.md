@@ -51,9 +51,12 @@ week04-react/
 │       ├── Announcement.tsx
 │       ├── DeadlineItem.tsx
 │       ├── DeadlineSection.tsx
+│       ├── EmptyBox.tsx
+│       ├── ErrorBox.tsx
 │       ├── Footer.tsx
 │       ├── Header.tsx
 │       ├── Hero.tsx
+│       ├── LoadingBox.tsx
 │       ├── ProjectCard.tsx
 │       ├── ProjectFilters.tsx
 │       ├── ProjectList.tsx
@@ -61,7 +64,6 @@ week04-react/
 │       ├── Resources.tsx
 │       ├── SectionHeading.tsx
 │       ├── StatCard.tsx
-│       ├── StateBox.tsx
 │       └── WeatherCard.tsx
 ├── vite.config.ts
 ├── tsconfig.app.json

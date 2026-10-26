@@ -1,6 +1,8 @@
 import type { LoadState, Project, ProjectFilter } from "../types";
+import EmptyBox from "./EmptyBox";
+import ErrorBox from "./ErrorBox";
+import LoadingBox from "./LoadingBox";
 import ProjectCard from "./ProjectCard";
-import { EmptyBox, ErrorBox, LoadingBox } from "./StateBox";
 
 interface ProjectListProps {
   state: LoadState<Project[]>;

@@ -1,32 +1,10 @@
-interface LoadingBoxProps {
-  text: string;
-  className?: string;
-}
-
 interface ErrorBoxProps {
   message: string;
   onRetry: () => void;
   className?: string;
 }
 
-interface EmptyBoxProps {
-  title: string;
-  text: string;
-  className?: string;
-}
-
-export function LoadingBox({
-  text,
-  className = "px-2 py-[14px] text-[13px] font-semibold text-muted",
-}: LoadingBoxProps) {
-  return (
-    <p role="status" className={className}>
-      {text}
-    </p>
-  );
-}
-
-export function ErrorBox({
+function ErrorBox({
   message,
   onRetry,
   className = "rounded-[13px] border border-[#f0d3d3] bg-[#fdf5f5] p-4 text-center",
@@ -46,15 +24,4 @@ export function ErrorBox({
   );
 }
 
-export function EmptyBox({
-  title,
-  text,
-  className = "rounded-[18px] border border-dashed border-line bg-white p-8 text-center",
-}: EmptyBoxProps) {
-  return (
-    <div className={className}>
-      <strong className="text-sm">{title}</strong>
-      <p className="mt-1.5 text-[12px] text-muted">{text}</p>
-    </div>
-  );
-}
+export default ErrorBox;

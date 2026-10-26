@@ -1,7 +1,8 @@
 import type { Deadline, LoadState } from "../types";
 import DeadlineItem from "./DeadlineItem";
+import ErrorBox from "./ErrorBox";
+import LoadingBox from "./LoadingBox";
 import SectionHeading from "./SectionHeading";
-import { ErrorBox, LoadingBox } from "./StateBox";
 
 interface DeadlineSectionProps {
   deadlines: LoadState<Deadline[]>;
