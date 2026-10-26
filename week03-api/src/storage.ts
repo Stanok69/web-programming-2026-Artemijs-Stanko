@@ -1,4 +1,4 @@
-import { isProject } from "./types";
+import { isProject } from "./guards";
 import type { Project } from "./types";
 
 const STORAGE_KEY = "campusflow.projects";
