@@ -289,6 +289,130 @@
       </section>
 
       <section
+        id="add-project"
+        class="mx-auto w-full max-w-[1180px] px-5 pt-[14px] pb-10 max-sm:px-3.5"
+      >
+        <form id="projectForm" class="rounded-[18px] border border-line bg-white p-6" novalidate>
+          <div class="mb-5">
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">
+              NEW PROJECT
+            </p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Add a project</h2>
+            <p class="mt-2 text-[13px] text-muted">
+              New projects are stored in this browser and stay here after a reload.
+            </p>
+          </div>
+
+          <div class="grid gap-[18px] md:grid-cols-2">
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectTitle">Title</label>
+              <input
+                id="projectTitle"
+                name="title"
+                type="text"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="Responsive Portfolio"
+                aria-describedby="projectTitleError"
+              />
+              <p
+                id="projectTitleError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectCategory">Category</label>
+              <select
+                id="projectCategory"
+                name="category"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                aria-describedby="projectCategoryError"
+              >
+                <option value="">Choose a category</option>
+                <option value="Frontend">Frontend</option>
+                <option value="API">API</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Design">Design</option>
+              </select>
+              <p
+                id="projectCategoryError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5 md:col-span-2">
+              <label class="text-xs font-bold" for="projectDescription">Description</label>
+              <textarea
+                id="projectDescription"
+                name="description"
+                class="min-h-[86px] w-full resize-y rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="What should this project include?"
+                aria-describedby="projectDescriptionError"
+              ></textarea>
+              <p
+                id="projectDescriptionError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectDueDate">Due date</label>
+              <input
+                id="projectDueDate"
+                name="dueDate"
+                type="date"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                aria-describedby="projectDueDateError"
+              />
+              <p
+                id="projectDueDateError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+
+            <div class="grid gap-1.5">
+              <label class="text-xs font-bold" for="projectProgress">Progress (%)</label>
+              <input
+                id="projectProgress"
+                name="progress"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                class="w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]"
+                placeholder="0"
+                aria-describedby="projectProgressError"
+              />
+              <p
+                id="projectProgressError"
+                class="min-h-[16px] text-[11px] font-semibold text-[#c64444]"
+                role="alert"
+              ></p>
+            </div>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              class="rounded-[10px] bg-brand px-4 py-2.5 text-xs font-extrabold text-white transition hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Add project
+            </button>
+            <button
+              type="reset"
+              class="rounded-[10px] border border-line px-4 py-2.5 text-xs font-extrabold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section
         class="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]"
       >
         <section id="deadlines" class="rounded-[18px] border border-line bg-white p-6">
