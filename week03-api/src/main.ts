@@ -1,15 +1,18 @@
 ﻿import "./style.css";
-import { describeError, fetchDeadlines, fetchProjects } from "./api";
+import { describeError, fetchDeadlines, fetchProjects, fetchWeather } from "./api";
 import { initProjectForm } from "./form";
 import { renderDeadlines, renderProjects } from "./render";
 import { loadProjects, saveProjects } from "./storage";
-import type { Deadline, LoadState, Project, ProjectFilter } from "./types";
+import type { CurrentWeather, Deadline, LoadState, Project, ProjectFilter } from "./types";
 import { initAnnouncement, initNavigation } from "./ui";
+import { describeWeather } from "./weather";
 
 const projectGrid = document.querySelector<HTMLElement>("#projectGrid");
 const deadlineList = document.querySelector<HTMLElement>("#deadlineList");
 const activeProjectCount = document.querySelector<HTMLElement>("#activeProjectCount");
 const projectSubmit = document.querySelector<HTMLButtonElement>("#projectSubmit");
+const weatherTemperature = document.querySelector<HTMLElement>("#weatherTemperature");
+const weatherDetails = document.querySelector<HTMLElement>("#weatherDetails");
 
 if (!projectGrid || !deadlineList) {
   throw new Error("Project or deadline container is missing in index.html");
@@ -22,6 +25,7 @@ const isProjectFilter = (value: string): value is ProjectFilter =>
 
 let projectsState: LoadState<Project[]> = { status: "loading" };
 let deadlinesState: LoadState<Deadline[]> = { status: "loading" };
+let weatherState: LoadState<CurrentWeather> = { status: "loading" };
 let localProjects: Project[] = loadProjects([]);
 let activeFilter: ProjectFilter = "all";
 
@@ -141,6 +145,47 @@ const retryDeadlines = (): void => {
   void loadDeadlinesSection();
 };
 
+const renderWeatherSection = (): void => {
+  if (weatherTemperature === null || weatherDetails === null) {
+    return;
+  }
+
+  switch (weatherState.status) {
+    case "loading":
+      weatherTemperature.textContent = "…";
+      weatherDetails.textContent = "Loading weather…";
+      return;
+    case "error":
+      weatherTemperature.textContent = "—";
+      weatherDetails.textContent = "Weather unavailable";
+      return;
+    case "success": {
+      const weather = weatherState.data;
+      weatherTemperature.textContent = `${Math.round(weather.temperature)}°C`;
+      weatherDetails.textContent = `${describeWeather(weather.weatherCode)} · ${Math.round(weather.windSpeed)} km/h`;
+      return;
+    }
+    default: {
+      const check: never = weatherState;
+      return check;
+    }
+  }
+};
+
+const loadWeatherSection = async (): Promise<void> => {
+  weatherState = { status: "loading" };
+  renderWeatherSection();
+
+  try {
+    const weather = await fetchWeather();
+    weatherState = { status: "success", data: weather };
+  } catch (error) {
+    weatherState = { status: "error", message: describeError(error) };
+  }
+
+  renderWeatherSection();
+};
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const value = button.dataset.filter;
@@ -204,8 +249,10 @@ syncActiveProjectCount();
 syncSubmitState();
 renderProjectsSection();
 renderDeadlinesSection();
+renderWeatherSection();
 initProjectForm(handleAddProject);
 initNavigation();
 initAnnouncement();
 void loadProjectsSection();
 void loadDeadlinesSection();
+void loadWeatherSection();
