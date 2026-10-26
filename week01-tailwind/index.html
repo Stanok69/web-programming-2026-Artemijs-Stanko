@@ -11,13 +11,144 @@
     <title>CampusFlow Dashboard</title>
   </head>
   <body class="bg-canvas font-sans text-ink antialiased">
-    <div class="grid min-h-dvh place-items-center px-6">
-      <p
-        class="rounded-2xl border border-line bg-white px-6 py-4 text-sm font-semibold text-brand shadow-card"
+    <header
+      class="sticky top-0 z-50 border-b border-line/90 bg-white/90 backdrop-blur-md max-sm:relative"
+    >
+      <div
+        class="mx-auto flex min-h-[72px] w-full max-w-[1180px] items-center gap-7 px-5 max-sm:px-3.5"
       >
-        CampusFlow — Vite + Tailwind CSS is running.
-      </p>
-    </div>
+        <a
+          class="inline-flex items-center gap-2.5 rounded-lg font-extrabold tracking-[-0.02em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          href="#"
+        >
+          <span
+            class="grid size-[38px] place-items-center rounded-xl bg-linear-to-br from-brand to-[#8a7dff] text-[13px] text-white shadow-[0_8px_20px_rgba(109,93,252,0.28)]"
+            >CF</span
+          >
+          <span>CampusFlow</span>
+        </a>
+
+        <button
+          id="menuButton"
+          type="button"
+          class="ml-auto grid size-[42px] place-items-center rounded-[10px] p-[9px] text-ink transition hover:bg-[#f1f3f8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:hidden"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="mainNav"
+        >
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+          <span class="my-[5px] block h-0.5 w-full rounded-full bg-current"></span>
+        </button>
+
+        <nav
+          id="mainNav"
+          class="absolute inset-x-5 top-[72px] z-50 hidden flex-col gap-1 rounded-2xl border border-line bg-white p-2.5 shadow-card data-[open=true]:flex md:static md:inset-auto md:ml-[18px] md:flex md:flex-row md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            data-active="true"
+            href="#"
+            >Dashboard</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#projects"
+            >Projects</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#deadlines"
+            >Deadlines</a
+          >
+          <a
+            class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
+            href="#resources"
+            >Resources</a
+          >
+        </nav>
+
+        <div class="flex items-center gap-2.5 md:ml-auto">
+          <div
+            class="grid size-[38px] place-items-center rounded-full bg-ink text-xs font-extrabold text-white"
+          >
+            AZ
+          </div>
+          <div class="grid gap-px max-sm:hidden">
+            <strong class="text-[13px]">Alex Student</strong>
+            <span class="text-[11px] text-muted">Web Programming</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="bg-[radial-gradient(circle_at_15%_10%,rgba(109,93,252,0.14),transparent_34%),radial-gradient(circle_at_85%_0%,rgba(55,136,255,0.10),transparent_28%)] pt-16 pb-12 max-sm:pt-[42px]"
+      >
+        <div
+          class="mx-auto grid w-full max-w-[1180px] items-center gap-14 px-5 max-md:gap-7 max-sm:px-3.5 min-[960px]:grid-cols-[1.4fr_0.8fr]"
+        >
+          <div>
+            <span class="mb-2.5 block text-[11px] font-extrabold tracking-[0.14em] text-brand"
+              >MONDAY WORKSPACE</span
+            >
+            <h1
+              class="max-w-[760px] text-[clamp(42px,6vw,72px)] leading-[0.98] font-bold tracking-[-0.055em] max-sm:text-[43px]"
+            >
+              Build, learn, and ship something useful.
+            </h1>
+            <p class="mt-6 max-w-[650px] text-lg text-muted max-sm:text-base">
+              Track your current web-development tasks, upcoming deadlines, and project progress
+              in one place.
+            </p>
+            <div class="mt-[30px] flex flex-wrap gap-3 max-sm:grid">
+              <a
+                class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand px-[18px] text-sm font-bold text-white shadow-[0_12px_24px_rgba(109,93,252,0.24)] transition duration-150 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                href="#projects"
+                >View projects</a
+              >
+              <a
+                class="inline-flex min-h-11 items-center justify-center rounded-xl border border-line bg-white px-[18px] text-sm font-bold transition duration-150 hover:-translate-y-px hover:shadow-[0_10px_24px_rgba(34,45,78,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                href="#resources"
+                >Open resources</a
+              >
+            </div>
+          </div>
+
+          <aside
+            class="rounded-[22px] border border-white/60 bg-white/80 p-6 shadow-card backdrop-blur-md"
+          >
+            <p class="mb-[18px] text-[13px] font-bold text-muted">This week</p>
+            <div class="mb-2 flex items-center justify-between gap-4 text-[13px]">
+              <span class="text-muted">Course progress</span>
+              <strong>68%</strong>
+            </div>
+            <div class="h-[9px] overflow-hidden rounded-full bg-[#eceef4]">
+              <div
+                class="h-full rounded-[inherit] bg-linear-to-r from-brand to-[#8e80ff]"
+                style="width: 68%"
+              ></div>
+            </div>
+            <div class="mt-6 grid grid-cols-3 gap-3 max-sm:grid-cols-1">
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">4</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Open tasks</span>
+              </div>
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">2</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Due soon</span>
+              </div>
+              <div class="rounded-[14px] bg-[#f8fafc] px-2.5 py-4 text-center">
+                <strong class="block text-[21px]">7</strong>
+                <span class="mt-[3px] block text-[10px] text-muted">Completed</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
