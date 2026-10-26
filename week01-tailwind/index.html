@@ -147,6 +147,208 @@
           </aside>
         </div>
       </section>
+
+      <section class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
+        <div class="mb-5 flex items-end justify-between gap-6">
+          <div>
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">OVERVIEW</p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Your workspace</h2>
+          </div>
+          <p class="max-w-[420px] text-sm text-muted">
+            A quick snapshot of what needs attention today.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4">
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              01
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Active projects</p>
+              <strong class="block text-[26px] leading-[1.1]">3</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">+1 this month</span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              02
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Tasks completed</p>
+              <strong class="block text-[26px] leading-[1.1]">18</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">+6 this week</span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              03
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Quiz average</p>
+              <strong class="block text-[26px] leading-[1.1]">84%</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-muted">Last 4 quizzes</span>
+            </div>
+          </article>
+          <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
+            <div
+              class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
+            >
+              04
+            </div>
+            <div>
+              <p class="mb-1 block text-xs text-muted">Focus time</p>
+              <strong class="block text-[26px] leading-[1.1]">7.5h</strong>
+              <span class="mt-[7px] block text-[10px] font-bold text-[#1ca76f]">
+                +12% vs last week
+              </span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
+        <div class="mb-5 flex items-center justify-between gap-6">
+          <div>
+            <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">PROJECTS</p>
+            <h2 class="text-[28px] font-bold tracking-[-0.035em]">Current work</h2>
+          </div>
+          <div
+            class="inline-flex gap-1 rounded-xl border border-line bg-white p-1"
+            role="group"
+            aria-label="Project filters"
+          >
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              data-filter="all"
+              data-active="true"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              data-filter="active"
+              data-active="false"
+              aria-pressed="false"
+            >
+              Active
+            </button>
+            <button
+              type="button"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              data-filter="done"
+              data-active="false"
+              aria-pressed="false"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+
+        <div id="projectGrid" class="grid grid-cols-3 gap-[18px]">
+          <article
+            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            data-status="active"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#f0edff] px-[9px] text-[10px] font-extrabold text-[#6352ed]"
+                >Frontend</span
+              >
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#eef6ff] px-[9px] text-[10px] font-extrabold text-[#3788ff]"
+                >Active</span
+              >
+            </div>
+            <h3 class="mt-6 mb-2 text-xl tracking-[-0.025em]">Responsive Portfolio</h3>
+            <p class="min-h-[66px] text-[13px] text-muted">
+              Create a polished portfolio with reusable components and responsive layouts.
+            </p>
+            <div class="mt-[22px] mb-2.5 flex items-center justify-between gap-3 text-[10px] font-bold text-muted">
+              <span>Due Sep 21</span><span>72% complete</span>
+            </div>
+            <div class="h-[7px] overflow-hidden rounded-full bg-[#eceef4]">
+              <div class="h-full rounded-[inherit] bg-brand" style="width: 72%"></div>
+            </div>
+            <a
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+              >Open project →</a
+            >
+          </article>
+
+          <article
+            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            data-status="active"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#eaf3ff] px-[9px] text-[10px] font-extrabold text-[#2f78d6]"
+                >API</span
+              >
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#eef6ff] px-[9px] text-[10px] font-extrabold text-[#3788ff]"
+                >Active</span
+              >
+            </div>
+            <h3 class="mt-6 mb-2 text-xl tracking-[-0.025em]">Weather Dashboard</h3>
+            <p class="min-h-[66px] text-[13px] text-muted">
+              Fetch remote data, handle loading states, and present forecast information clearly.
+            </p>
+            <div class="mt-[22px] mb-2.5 flex items-center justify-between gap-3 text-[10px] font-bold text-muted">
+              <span>Due Sep 28</span><span>45% complete</span>
+            </div>
+            <div class="h-[7px] overflow-hidden rounded-full bg-[#eceef4]">
+              <div class="h-full rounded-[inherit] bg-[#3788ff]" style="width: 45%"></div>
+            </div>
+            <a
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+              >Open project →</a
+            >
+          </article>
+
+          <article
+            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            data-status="done"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#e9f8f2] px-[9px] text-[10px] font-extrabold text-[#16875b]"
+                >JavaScript</span
+              >
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#edf9f4] px-[9px] text-[10px] font-extrabold text-[#1ca76f]"
+                >Done</span
+              >
+            </div>
+            <h3 class="mt-6 mb-2 text-xl tracking-[-0.025em]">Task Manager</h3>
+            <p class="min-h-[66px] text-[13px] text-muted">
+              Build a small CRUD interface with filtering, local storage, and form validation.
+            </p>
+            <div class="mt-[22px] mb-2.5 flex items-center justify-between gap-3 text-[10px] font-bold text-muted">
+              <span>Submitted Sep 7</span><span>100% complete</span>
+            </div>
+            <div class="h-[7px] overflow-hidden rounded-full bg-[#eceef4]">
+              <div class="h-full rounded-[inherit] bg-[#1ca76f]" style="width: 100%"></div>
+            </div>
+            <a
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+              >View submission →</a
+            >
+          </article>
+        </div>
+      </section>
     </main>
 
     <script type="module" src="/src/main.js"></script>

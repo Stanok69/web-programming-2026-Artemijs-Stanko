@@ -22,3 +22,24 @@ document.addEventListener("keydown", (event) => {
     menuButton.focus();
   }
 });
+
+const filterButtons = document.querySelectorAll("[data-filter]");
+const projectCards = document.querySelectorAll("[data-status]");
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const selectedFilter = button.dataset.filter;
+
+    filterButtons.forEach((item) => {
+      const isActive = item === button;
+      item.dataset.active = String(isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+
+    projectCards.forEach((card) => {
+      const shouldShow =
+        selectedFilter === "all" || card.dataset.status === selectedFilter;
+      card.classList.toggle("hidden", !shouldShow);
+    });
+  });
+});
