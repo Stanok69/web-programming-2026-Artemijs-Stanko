@@ -10,6 +10,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
   formu un `localStorage` saglabāšanu.
 - [`week03-api`](./week03-api) — CampusFlow ar datiem no JSON API, ielādes stāvokļiem un
   laikapstākļiem no Open-Meteo.
+- [`week04-react`](./week04-react) — CampusFlow React versija ar komponentēm un tipizētiem
+  props; datu slānis pārnests no 3. nedēļas bez izmaiņām.
 
 ## Dokumentācija
 
@@ -19,6 +21,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
 - [week02 REFLECTION.md](./week02-typescript/REFLECTION.md)
 - [week03 AI_USAGE.md](./week03-api/AI_USAGE.md)
 - [week03 REFLECTION.md](./week03-api/REFLECTION.md)
+- [week04 AI_USAGE.md](./week04-react/AI_USAGE.md)
+- [week04 REFLECTION.md](./week04-react/REFLECTION.md)
 
 ## Arhīvs
 
