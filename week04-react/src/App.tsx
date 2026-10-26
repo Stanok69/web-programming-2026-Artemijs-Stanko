@@ -1,7 +1,9 @@
 import Announcement from "./components/Announcement";
+import DeadlineSection from "./components/DeadlineSection";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import ProjectList from "./components/ProjectList";
 import Resources from "./components/Resources";
 import SectionHeading from "./components/SectionHeading";
 import StatCard from "./components/StatCard";
@@ -15,7 +17,13 @@ interface AppProps {
   onRetryDeadlines: () => void;
 }
 
-function App({ projects, deadlines, weather }: AppProps) {
+function App({
+  projects,
+  deadlines,
+  weather,
+  onRetryProjects,
+  onRetryDeadlines,
+}: AppProps) {
   const activeProjects =
     projects.status === "success"
       ? String(projects.data.filter((project) => project.status === "active").length)
@@ -120,28 +128,11 @@ function App({ projects, deadlines, weather }: AppProps) {
             </div>
           </SectionHeading>
 
-          <div className="grid grid-cols-1 gap-[18px] md:grid-cols-2 lg:grid-cols-3">
-            <p className="col-span-full rounded-[18px] border border-line bg-white p-6 text-center text-[13px] font-semibold text-muted">
-              {projects.status}
-            </p>
-          </div>
+          <ProjectList state={projects} filter="all" onRetry={onRetryProjects} />
         </section>
 
         <section className="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]">
-          <section id="deadlines" className="rounded-[18px] border border-line bg-white p-6">
-            <SectionHeading eyebrow="DEADLINES" title="Coming up">
-              <a
-                className="rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-                href="#"
-              >
-                See all
-              </a>
-            </SectionHeading>
-
-            <div className="grid gap-1">
-              <p className="px-2 py-[14px] text-[13px] text-muted">{deadlines.status}</p>
-            </div>
-          </section>
+          <DeadlineSection deadlines={deadlines} onRetry={onRetryDeadlines} />
 
           <Resources />
         </section>
