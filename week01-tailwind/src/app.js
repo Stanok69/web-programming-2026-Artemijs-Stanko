@@ -23,6 +23,22 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+desktopQuery.addEventListener("change", (event) => {
+  if (event.matches) {
+    setMenuOpen(false);
+  }
+});
+
+const announcement = document.querySelector("#announcement");
+const announcementClose = document.querySelector("#announcementClose");
+
+announcementClose.addEventListener("click", () => {
+  announcement.classList.add("hidden");
+  announcementClose.blur();
+});
+
 const filterButtons = document.querySelectorAll("[data-filter]");
 const projectCards = document.querySelectorAll("[data-status]");
 

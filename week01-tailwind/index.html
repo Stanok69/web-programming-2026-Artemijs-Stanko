@@ -10,7 +10,7 @@
     />
     <title>CampusFlow Dashboard</title>
   </head>
-  <body class="bg-canvas font-sans text-ink antialiased">
+  <body class="bg-canvas font-sans text-ink antialiased selection:bg-brand/20">
     <header
       class="sticky top-0 z-50 border-b border-line/90 bg-white/90 backdrop-blur-md max-sm:relative"
     >
@@ -48,6 +48,7 @@
           <a
             class="rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink"
             data-active="true"
+            aria-current="page"
             href="#"
             >Dashboard</a
           >
@@ -82,6 +83,32 @@
       </div>
     </header>
 
+    <div class="mx-auto w-full max-w-[1180px] px-5 pt-6 max-sm:px-3.5">
+      <div
+        id="announcement"
+        class="flex items-start gap-3 rounded-2xl border border-brand/20 bg-brand-soft/70 px-4 py-3.5 shadow-soft sm:items-center"
+      >
+        <span
+          class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-linear-to-br from-brand to-[#8a7dff] text-[9px] font-extrabold text-white sm:mt-0"
+          aria-hidden="true"
+          >NEW</span
+        >
+        <p class="flex-1 text-[13px] leading-relaxed">
+          <strong class="font-extrabold">Tailwind migration is live.</strong>
+          CampusFlow now runs on Vite and Tailwind CSS utilities — the same layout with cleaner
+          styles.
+        </p>
+        <button
+          id="announcementClose"
+          type="button"
+          class="grid size-8 shrink-0 place-items-center rounded-lg text-lg leading-none text-muted transition hover:bg-white hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          aria-label="Dismiss announcement"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
     <main>
       <section
         class="bg-[radial-gradient(circle_at_15%_10%,rgba(109,93,252,0.14),transparent_34%),radial-gradient(circle_at_85%_0%,rgba(55,136,255,0.10),transparent_28%)] pt-16 pb-12 max-sm:pt-[42px]"
@@ -96,7 +123,10 @@
             <h1
               class="max-w-[760px] text-[clamp(42px,6vw,72px)] leading-[0.98] font-bold tracking-[-0.055em] max-sm:text-[43px]"
             >
-              Build, learn, and ship something useful.
+              Build, learn, and ship
+              <span class="bg-linear-to-r from-brand to-[#8a7dff] bg-clip-text text-transparent"
+                >something useful.</span
+              >
             </h1>
             <p class="mt-6 max-w-[650px] text-lg text-muted max-sm:text-base">
               Track your current web-development tasks, upcoming deadlines, and project progress
@@ -159,7 +189,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 min-[960px]:grid-cols-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
             <div
               class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
@@ -226,7 +256,7 @@
           >
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="all"
               data-active="true"
               aria-pressed="true"
@@ -235,7 +265,7 @@
             </button>
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="active"
               data-active="false"
               aria-pressed="false"
@@ -244,7 +274,7 @@
             </button>
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="done"
               data-active="false"
               aria-pressed="false"
@@ -256,7 +286,7 @@
 
         <div id="projectGrid" class="grid grid-cols-1 gap-[18px] md:grid-cols-2 lg:grid-cols-3">
           <article
-            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            class="group rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
             data-status="active"
           >
             <div class="flex items-center justify-between gap-3">
@@ -280,14 +310,14 @@
               <div class="h-full rounded-[inherit] bg-brand" style="width: 72%"></div>
             </div>
             <a
-              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               href="#"
               >Open project →</a
             >
           </article>
 
           <article
-            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            class="group rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
             data-status="active"
           >
             <div class="flex items-center justify-between gap-3">
@@ -311,14 +341,14 @@
               <div class="h-full rounded-[inherit] bg-[#3788ff]" style="width: 45%"></div>
             </div>
             <a
-              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               href="#"
               >Open project →</a
             >
           </article>
 
           <article
-            class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
+            class="group rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
             data-status="done"
           >
             <div class="flex items-center justify-between gap-3">
@@ -342,7 +372,7 @@
               <div class="h-full rounded-[inherit] bg-[#1ca76f]" style="width: 100%"></div>
             </div>
             <a
-              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              class="mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
               href="#"
               >View submission →</a
             >
