@@ -5,10 +5,10 @@
 Kad izdzēsu `note` un ierakstīju `tone="green"`, kļūda parādījās nevis pārlūkā, bet
 `npm run build` laikā, jo būvējums sākas ar `tsc -b`. TypeScript teica
 `TS2741: Property 'note' is missing ... but required in type 'StatCardProps'` un
-`TS2322: Type '"green"' is not assignable to type 'StatTone | undefined'`. Pārlūkā lapa
-šajā brīdī nemaz netika atjaunināta, jo jauns būvējums neizdevās. JavaScript React
-projektā šādas kļūdas nebūtu: komponente saņemtu `undefined`, un lapā vienkārši parādītos
-tukša vieta vai nepareizs teksts. Kļūdu pamanītu tikai vēlāk, apskatot lapu.
+`TS2322: Type '"green"' is not assignable to type 'StatTone | undefined'`. Pārlūkā šāda
+kļūda nav redzama, jo to pamanīja TypeScript pirms būvējuma. JavaScript React projektā
+šādas kļūdas nebūtu: komponente saņemtu `undefined`, un lapā vienkārši parādītos tukša
+vieta vai nepareizs teksts. Kļūdu pamanītu tikai vēlāk, apskatot lapu.
 
 ## 2. Kas pārnāca, kas pazuda
 
