@@ -8,6 +8,7 @@ import { initAnnouncement, initNavigation } from "./ui";
 
 const projectGrid = document.querySelector<HTMLElement>("#projectGrid");
 const deadlineList = document.querySelector<HTMLElement>("#deadlineList");
+const activeProjectCount = document.querySelector<HTMLElement>("#activeProjectCount");
 
 if (!projectGrid || !deadlineList) {
   throw new Error("Project or deadline container is missing in index.html");
@@ -20,6 +21,13 @@ const isProjectFilter = (value: string): value is ProjectFilter =>
 
 let projects: Project[] = loadProjects(initialProjects);
 let activeFilter: ProjectFilter = "all";
+
+const syncActiveProjectCount = (): void => {
+  if (activeProjectCount !== null) {
+    const active = projects.filter((project) => project.status === "active").length;
+    activeProjectCount.textContent = String(active);
+  }
+};
 
 const syncFilterButtons = (): void => {
   filterButtons.forEach((button) => {
@@ -36,6 +44,7 @@ const renderVisibleProjects = (): void => {
       : projects.filter((project) => project.status === activeFilter);
 
   renderProjects(visibleProjects, projectGrid);
+  syncActiveProjectCount();
 };
 
 filterButtons.forEach((button) => {
@@ -60,6 +69,31 @@ const handleAddProject = (project: Project): void => {
   syncFilterButtons();
   renderVisibleProjects();
 };
+
+projectGrid.addEventListener("click", (event) => {
+  const target = event.target;
+
+  if (!(target instanceof Element)) {
+    return;
+  }
+
+  const deleteButton = target.closest<HTMLButtonElement>("[data-action='delete']");
+
+  if (deleteButton === null) {
+    return;
+  }
+
+  const card = deleteButton.closest<HTMLElement>("[data-project-id]");
+  const projectId = card?.dataset.projectId;
+
+  if (projectId === undefined) {
+    return;
+  }
+
+  projects = projects.filter((project) => project.id !== projectId);
+  saveProjects(projects);
+  renderVisibleProjects();
+});
 
 syncFilterButtons();
 renderVisibleProjects();

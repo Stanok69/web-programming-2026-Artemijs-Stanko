@@ -6,11 +6,15 @@ Web programmēšanas kursa semestra darbu repozitorijs.
 
 - [`week01-tailwind`](./week01-tailwind) — CampusFlow pāreja no tradicionālā CSS uz Tailwind CSS
   (Vite + Tailwind CSS 4).
+- [`week02-typescript`](./week02-typescript) — CampusFlow datu vadīta versija ar TypeScript,
+  formu un `localStorage` saglabāšanu.
 
 ## Dokumentācija
 
-- [AI_USAGE.md](./week01-tailwind/AI_USAGE.md)
-- [REFLECTION.md](./week01-tailwind/REFLECTION.md)
+- [week01 AI_USAGE.md](./week01-tailwind/AI_USAGE.md)
+- [week01 REFLECTION.md](./week01-tailwind/REFLECTION.md)
+- [week02 AI_USAGE.md](./week02-typescript/AI_USAGE.md)
+- [week02 REFLECTION.md](./week02-typescript/REFLECTION.md)
 
 ## Arhīvs
 

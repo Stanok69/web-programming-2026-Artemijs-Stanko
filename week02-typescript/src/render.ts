@@ -91,6 +91,7 @@ const createProjectCard = (project: Project): HTMLElement => {
     "group rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card",
   );
   card.dataset.status = project.status;
+  card.dataset.projectId = project.id;
 
   const badges = createElement("div", "flex items-center justify-between gap-3");
   badges.append(
@@ -135,17 +136,51 @@ const createProjectCard = (project: Project): HTMLElement => {
 
   const link = createElement(
     "a",
-    "mt-[18px] inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
+    "inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
     project.status === "done" ? "View submission →" : "Open project →",
   );
   link.href = "#";
 
-  card.append(badges, title, description, progressRow, progressTrack, link);
+  const deleteButton = createElement(
+    "button",
+    "rounded text-[11px] font-bold text-muted transition hover:text-[#c64444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2",
+    "Delete",
+  );
+  deleteButton.type = "button";
+  deleteButton.dataset.action = "delete";
+  deleteButton.setAttribute("aria-label", `Delete ${project.title}`);
+
+  const actions = createElement("div", "mt-[18px] flex items-center justify-between gap-3");
+  actions.append(link, deleteButton);
+
+  card.append(badges, title, description, progressRow, progressTrack, actions);
 
   return card;
 };
 
+const createEmptyState = (): HTMLElement => {
+  const wrapper = createElement(
+    "div",
+    "col-span-full rounded-[18px] border border-dashed border-line bg-white p-8 text-center",
+  );
+  wrapper.append(
+    createElement("strong", "text-sm", "No projects here yet"),
+    createElement(
+      "p",
+      "mt-1.5 text-[12px] text-muted",
+      "Try another filter or add a new project below.",
+    ),
+  );
+
+  return wrapper;
+};
+
 export const renderProjects = (projects: Project[], container: HTMLElement): void => {
+  if (projects.length === 0) {
+    container.replaceChildren(createEmptyState());
+    return;
+  }
+
   container.replaceChildren(...projects.map(createProjectCard));
 };
 
