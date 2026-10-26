@@ -1,36 +1,29 @@
 # Individuālā refleksija
 
-## 1. Ko deva tipi?
+## 1. Kad `fetch` nemet kļūdu?
 
-JavaScript kļūdas parasti redz tikai tad, kad lapa jau strādā nepareizi. TypeScript pārbauda
-kodu pirms palaišanas. Man tas palīdzēja ar datiem: projektam ir noteikti lauki, un, ja kaut ko
-aizmirstu vai uzrakstu nepareizi, `npm run build` uzreiz parāda kļūdu.
+`fetch` nemet kļūdu, ja serveris atbild ar statusu 404 vai 500. Tas tikai nozīmē, ka saziņa
+notika. Manā kodā tāpēc ir pārbaude `if (!response.ok) { throw new Error(...) }`. Bez tās lapa
+mēģinātu lasīt kļūdas lapu kā JSON un neparādītu saprotamu ziņojumu.
 
-Konkrēta kļūda: formas pārbaudē kategorija sākumā bija vienkārši `string`, bet `Project` gaidīja
-tipu `Category`. TypeScript neļāva šo vērtību piešķirt. Es izlaboju ar funkciju `isCategory`,
-kas pārbauda, vai teksts tiešām ir viena no atļautajām kategorijām. Pēc tam TypeScript saprata,
-ka vērtība ir droša.
+## 2. `any` un `unknown`
 
-## 2. `null` un `querySelector`
+`response.json()` atgriež `Promise<any>`. Ar `any` es varu izsaukt jebkuru lauku, un TypeScript
+nebrīdinās, pat ja dati ir nepareizi. `const data: unknown = await response.json();` saka, ka
+dati vispirms ir jāpārbauda. Atšķirība starp `data as Project[]` un type guard funkciju ir tāda,
+ka `as` tikai liek TypeScript noticēt, bet neko nepārbauda. Type guard ir īsta funkcija, kas
+apskata katru lauku un atgriež `true` tikai tad, ja dati tiešām ir pareizi.
 
-`document.querySelector(...)` var atrast elementu, bet var arī neatrast neko. Tāpēc TypeScript
-saka, ka rezultāts var būt `null`, un neļauj uzreiz izsaukt metodes. Manā kodā katram galvenajam
-elementam ir pārbaude. Piemēram, ja lapā nav `#projectGrid` vai `#deadlineList`, programma
-apstājas ar saprotamu kļūdu. Formā es rakstīju `if (form === null) return;`, jo bez formas lapa
-var vienkārši turpināt darbu. Tā kods nekrīt, ja HTML mainās.
+## 3. Sveša API dati
 
-## 3. Dati no ārpuses
+Open-Meteo atbildi pārveidoju savā tipā `CurrentWeather`, jo pārējai lietotnei nav jāzina sveši
+nosaukumi kā `temperature_2m`. Ja Open-Meteo rīt pārdēvētu lauku, mainītos tikai `src/api.ts`.
+Ja lauks pazustu, pārbaude to pamanītu un kartītē parādītos *"Weather unavailable"*, nevis
+salūztu visa lapa.
 
-`JSON.parse` atgriež jebko. Ja es uzrakstu `as Project[]`, tas tikai nomierina TypeScript, bet
-dati joprojām var būt nejēdzīgi. Tāpēc es izmantoju `try/catch`, pārbaudu, vai rezultāts ir
-masīvs, un katru ierakstu pārbaudu ar `isProject`. Ja kaut kas nav kārtībā, lapa izmanto
-sākotnējos datus no `data.ts`.
+## 4. Lietotāja skatījums
 
-Lietotāja tekstu nedrīkst likt ar `innerHTML`, jo tad teksts kļūst par HTML kodu. Ja kāds ievada
-`<img onerror=...>`, pārlūks to izpilda. Es izmantoju `textContent`, tāpēc `<b>test</b>` parādās
-kā vienkāršs teksts.
-
-## 4. Mans vērtējums
-
-TypeScript šķiet lieks mazai vienas lapas vietnei, kur datu nav daudz. Bet tur, kur ir formas,
-saraksti un saglabāšana, tas ļoti palīdz. Es noteikti izmantošu to arī turpmāk.
+DevTools ieslēdzu lēnu tīklu (Slow 4G) un pārlādēju lapu. Pirms ielādes stāvokļiem lapa kādu
+laiku izskatījās tukša, un cilvēks nezināja, vai kaut kas notiek. Tagad redzams teksts
+*"Loading projects…"*, bet pēc tam kartītes. Ja pieprasījums ir bloķēts, redzams kļūdas
+ziņojums un poga **Try again**.

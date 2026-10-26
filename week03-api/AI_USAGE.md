@@ -5,35 +5,35 @@
 
 ## Kam es izmantoju mākslīgo intelektu?
 
-- Vite + TypeScript projekta uzstādīšanai un Tailwind CSS pievienošanai.
-- Tipu (`Project`, `Deadline`, `Category`) un sākotnējo datu sagatavošanai.
-- rendering funkciju, filtru un mobilās navigācijas pārrakstīšanai TypeScript.
-- Formas validācijas un `localStorage` loģikas izstrādei.
-- Kļūdu meklēšanai un dokumentācijas sagatavošanai.
+- Projektu un termiņu pārcelšanai no `data.ts` uz JSON failiem `public/api/`.
+- Tipizētas API kārtas (`src/api.ts`) un type guard funkciju (`src/guards.ts`) izveidei.
+- `LoadState<T>` stāvokļu un ielādes/kļūdas/tukšā stāvokļa attēlošanas izstrādei.
+- Open-Meteo laikapstākļu pievienošanai un WMO kodu pārvēršanai tekstā.
+- Kļūdu meklēšanai, pārbaudēm ar DevTools un dokumentācijas sagatavošanai.
 
 ## Kuru kodu vai konfigurāciju būtiskā apjomā ģenerēja mākslīgais intelekts?
 
-- `src/types.ts`, `src/data.ts`, `src/render.ts`, `src/form.ts`, `src/storage.ts` un `src/ui.ts`
-  lielākā daļa koda.
-- Formas HTML struktūra `index.html` failā.
+- `src/api.ts`, `src/guards.ts`, `src/weather.ts` un lielākā daļa `src/render.ts` un `src/main.ts`
+  koda.
+- `public/api/projects.json` un `public/api/deadlines.json` sākotnējie dati.
 - `README.md`, `AI_USAGE.md` un `REFLECTION.md` melnraksti.
 
 ## Kuru kodu vai konfigurāciju es uzrakstīju pats/pati vai būtiski pārveidoju?
 
-- Pielāgoju formulējumus un klašu nosaukumus, lai izskats paliktu tāds pats kā 1. nedēļā.
-- Pārbaudīju datu formātu (`YYYY-MM-DD`) un to, ka termiņu nozīmītes paliek kā iepriekš.
-- Pārbaudīju responsīvo izkārtojumu 375 px, 768 px un 1280 px platumā.
+- Pārbaudīju, ka izskats paliek tāds pats kā 2. nedēļā, un pielāgoju statistikas kartītes tekstu.
+- Pārbaudīju datu formātu un termiņu datumus, lai tie būtu nākotnē.
+- Pārbaudīju, ka `localStorage` atslēga ir jauna un vecie 2. nedēļas dati netiek izmantoti.
 - Sakārtoju commit vēsturi pa kontrolpunktiem.
 
 ## Viens MI ieteikums, kuru es noraidīju vai izmainīju
 
-MI ieteica projektu kartītes veidot ar `innerHTML` un garu HTML virkni, jo tā kods ir īsāks.
-Es to noraidīju, jo lietotāja ievadītais nosaukums un apraksts nedrīkst nonākt lapā kā HTML.
-Tāpēc kartītes tiek veidotas ar `document.createElement` un `textContent`.
+MI ieteica pēc `response.json()` uzreiz rakstīt `const projects = data as Project[]`, jo tā kods
+ir īsāks. Es to noraidīju, jo `as` tikai apklusina TypeScript, bet dati joprojām var būt
+nepareizi. Tāpēc rezultāts tiek saglabāts kā `unknown` un pārbaudīts ar `isProject` type guard.
 
 ## Viena lieta, kuru es pārbaudīju pats/pati, nevis vienkārši uzticējos MI atbildei
 
-Pārbaudīju drošību un saglabāšanu pārlūkā: pievienoju projektu ar nosaukumu `<b>test</b>` un
-pārliecinājos, ka kartītē redzams teksts, nevis trekns vārds. Pēc tam DevTools izmainīju
-`localStorage` vērtību uz nederīgu tekstu un pārlādēju lapu — lapa nesalūza un parādīja
-sākotnējos trīs projektus.
+Pārbaudīju visus piecus DevTools gadījumus: lēnu tīklu, bloķētu `projects.json`, izdzēstu
+failu (Vite atgriež `index.html` ar statusu 200), `"progress": "50"` un tukšu `[]`. Katrā
+gadījumā lapa parādīja saprotamu stāvokli. Atsevišķi pārbaudīju arī bloķētu Open-Meteo
+pieprasījumu — parādījās *"Weather unavailable"*, bet projekti un termiņi turpināja strādāt.

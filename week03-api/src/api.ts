@@ -5,9 +5,10 @@ const PROJECTS_URL = "/api/projects.json";
 const DEADLINES_URL = "/api/deadlines.json";
 const WEATHER_URL =
   "https://api.open-meteo.com/v1/forecast?latitude=56.95&longitude=24.11&current=temperature_2m,wind_speed_10m,weather_code&timezone=Europe%2FRiga";
+const REQUEST_TIMEOUT_MS = 8000;
 
 const getJson = async (url: string): Promise<unknown> => {
-  const response = await fetch(url);
+  const response = await fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
 
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}.`);
@@ -22,6 +23,10 @@ const getJson = async (url: string): Promise<unknown> => {
 };
 
 export const describeError = (error: unknown): string => {
+  if (error instanceof DOMException && error.name === "TimeoutError") {
+    return "The server took too long to answer. Check your connection and try again.";
+  }
+
   if (error instanceof TypeError) {
     return "The server could not be reached. Check your connection and try again.";
   }
