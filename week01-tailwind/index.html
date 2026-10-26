@@ -104,12 +104,12 @@
             </p>
             <div class="mt-[30px] flex flex-wrap gap-3 max-sm:grid">
               <a
-                class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand px-[18px] text-sm font-bold text-white shadow-[0_12px_24px_rgba(109,93,252,0.24)] transition duration-150 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                class="inline-flex min-h-11 items-center justify-center rounded-xl bg-brand px-[18px] text-sm font-bold text-white shadow-[0_12px_24px_rgba(109,93,252,0.24)] transition duration-150 hover:-translate-y-px hover:bg-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 max-sm:w-full"
                 href="#projects"
                 >View projects</a
               >
               <a
-                class="inline-flex min-h-11 items-center justify-center rounded-xl border border-line bg-white px-[18px] text-sm font-bold transition duration-150 hover:-translate-y-px hover:shadow-[0_10px_24px_rgba(34,45,78,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                class="inline-flex min-h-11 items-center justify-center rounded-xl border border-line bg-white px-[18px] text-sm font-bold transition duration-150 hover:-translate-y-px hover:shadow-[0_10px_24px_rgba(34,45,78,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 max-sm:w-full"
                 href="#resources"
                 >Open resources</a
               >
@@ -149,17 +149,17 @@
       </section>
 
       <section class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
-        <div class="mb-5 flex items-end justify-between gap-6">
+        <div class="mb-5 flex items-end justify-between gap-6 max-sm:flex-col max-sm:items-start">
           <div>
             <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">OVERVIEW</p>
             <h2 class="text-[28px] font-bold tracking-[-0.035em]">Your workspace</h2>
           </div>
-          <p class="max-w-[420px] text-sm text-muted">
+          <p class="max-w-[420px] text-sm text-muted max-sm:max-w-none">
             A quick snapshot of what needs attention today.
           </p>
         </div>
 
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 min-[960px]:grid-cols-4">
           <article class="flex gap-3.5 rounded-[18px] border border-line bg-white p-5 shadow-soft">
             <div
               class="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-[11px] font-extrabold text-brand"
@@ -214,19 +214,19 @@
       </section>
 
       <section id="projects" class="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-4 max-sm:px-3.5">
-        <div class="mb-5 flex items-center justify-between gap-6">
+        <div class="mb-5 flex items-center justify-between gap-6 max-sm:flex-col max-sm:items-stretch">
           <div>
             <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">PROJECTS</p>
             <h2 class="text-[28px] font-bold tracking-[-0.035em]">Current work</h2>
           </div>
           <div
-            class="inline-flex gap-1 rounded-xl border border-line bg-white p-1"
+            class="inline-flex gap-1 rounded-xl border border-line bg-white p-1 max-sm:w-full"
             role="group"
             aria-label="Project filters"
           >
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="all"
               data-active="true"
               aria-pressed="true"
@@ -235,7 +235,7 @@
             </button>
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="active"
               data-active="false"
               aria-pressed="false"
@@ -244,7 +244,7 @@
             </button>
             <button
               type="button"
-              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink"
+              class="rounded-lg px-2.5 py-1.5 text-xs font-bold text-muted transition hover:bg-[#f0f2f7] hover:text-ink data-[active=true]:bg-[#f0f2f7] data-[active=true]:text-ink max-sm:flex-1"
               data-filter="done"
               data-active="false"
               aria-pressed="false"
@@ -254,7 +254,7 @@
           </div>
         </div>
 
-        <div id="projectGrid" class="grid grid-cols-3 gap-[18px]">
+        <div id="projectGrid" class="grid grid-cols-1 gap-[18px] md:grid-cols-2 lg:grid-cols-3">
           <article
             class="rounded-[18px] border border-line bg-white p-[22px] transition duration-200 hover:-translate-y-1 hover:border-[#d5d9e6] hover:shadow-card"
             data-status="active"
@@ -349,7 +349,153 @@
           </article>
         </div>
       </section>
+
+      <section
+        class="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]"
+      >
+        <section id="deadlines" class="rounded-[18px] border border-line bg-white p-6">
+          <div class="mb-5 flex items-center justify-between gap-6">
+            <div>
+              <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">
+                DEADLINES
+              </p>
+              <h2 class="text-[28px] font-bold tracking-[-0.035em]">Coming up</h2>
+            </div>
+            <a
+              class="rounded text-xs font-extrabold text-brand transition hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+              >See all</a
+            >
+          </div>
+
+          <div class="grid gap-1">
+            <article
+              class="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-line px-2 py-[14px] last:border-0 max-sm:grid-cols-[auto_1fr]"
+            >
+              <div
+                class="grid size-[46px] min-h-[50px] place-content-center rounded-xl bg-[#f8fafc] text-center"
+              >
+                <strong class="text-[17px] leading-none">18</strong>
+                <span class="mt-1 text-[9px] font-extrabold text-muted">SEP</span>
+              </div>
+              <div class="grid gap-[3px]">
+                <strong class="text-[13px]">Tailwind migration</strong>
+                <span class="text-[11px] text-muted">Web Programming · 23:59</span>
+              </div>
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#fdeeee] px-[9px] text-[10px] font-extrabold text-[#c64444] max-sm:col-start-2 max-sm:justify-self-start"
+                >2 days</span
+              >
+            </article>
+
+            <article
+              class="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-line px-2 py-[14px] last:border-0 max-sm:grid-cols-[auto_1fr]"
+            >
+              <div
+                class="grid size-[46px] min-h-[50px] place-content-center rounded-xl bg-[#f8fafc] text-center"
+              >
+                <strong class="text-[17px] leading-none">21</strong>
+                <span class="mt-1 text-[9px] font-extrabold text-muted">SEP</span>
+              </div>
+              <div class="grid gap-[3px]">
+                <strong class="text-[13px]">Portfolio checkpoint</strong>
+                <span class="text-[11px] text-muted">Web Programming · 18:00</span>
+              </div>
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#fff5de] px-[9px] text-[10px] font-extrabold text-[#aa7416] max-sm:col-start-2 max-sm:justify-self-start"
+                >5 days</span
+              >
+            </article>
+
+            <article
+              class="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-line px-2 py-[14px] last:border-0 max-sm:grid-cols-[auto_1fr]"
+            >
+              <div
+                class="grid size-[46px] min-h-[50px] place-content-center rounded-xl bg-[#f8fafc] text-center"
+              >
+                <strong class="text-[17px] leading-none">28</strong>
+                <span class="mt-1 text-[9px] font-extrabold text-muted">SEP</span>
+              </div>
+              <div class="grid gap-[3px]">
+                <strong class="text-[13px]">Weather Dashboard</strong>
+                <span class="text-[11px] text-muted">Web Programming · 23:59</span>
+              </div>
+              <span
+                class="inline-flex min-h-[25px] items-center rounded-full bg-[#f1f3f6] px-[9px] text-[10px] font-extrabold text-[#6f7788] max-sm:col-start-2 max-sm:justify-self-start"
+                >12 days</span
+              >
+            </article>
+          </div>
+        </section>
+
+        <aside id="resources" class="rounded-[18px] border border-line bg-white p-6">
+          <p class="mb-2.5 text-[11px] font-extrabold tracking-[0.14em] text-brand">RESOURCES</p>
+          <h2 class="text-[28px] font-bold tracking-[-0.035em]">Useful links</h2>
+          <p class="mt-2 mb-[18px] text-[13px] text-muted">
+            Keep these close while working through the project.
+          </p>
+
+          <div class="grid gap-2">
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >01</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Course repository</strong>
+                <small class="text-[10px] text-muted">Starter code and weekly tasks</small>
+              </span>
+            </a>
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >02</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Reference notes</strong>
+                <small class="text-[10px] text-muted">Quick examples and explanations</small>
+              </span>
+            </a>
+            <a
+              class="flex items-center gap-3 rounded-[13px] border border-line p-3 transition hover:border-[#cacfe0] hover:bg-[#f8fafc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+              href="#"
+            >
+              <span
+                class="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[10px] font-extrabold text-brand"
+                >03</span
+              >
+              <span class="grid gap-0.5">
+                <strong class="text-xs">Submission guide</strong>
+                <small class="text-[10px] text-muted">Checklist before you submit</small>
+              </span>
+            </a>
+          </div>
+
+          <div class="mt-[18px] rounded-[13px] border border-[#f3e4b6] bg-[#fff8e8] p-3.5">
+            <strong class="text-[11px] text-[#9a6c16]">Tip</strong>
+            <p class="mt-1 text-[11px] text-[#735d34]">
+              Use browser DevTools while migrating the page. Compare computed styles before and
+              after each change.
+            </p>
+          </div>
+        </aside>
+      </section>
     </main>
+
+    <footer class="border-t border-line bg-white">
+      <div
+        class="mx-auto flex min-h-[74px] w-full max-w-[1180px] items-center justify-between gap-5 px-5 text-[11px] text-muted max-sm:flex-col max-sm:items-start max-sm:px-3.5 max-sm:py-[18px]"
+      >
+        <span>CampusFlow · Web Programming</span>
+        <span>Starter project for CSS → Tailwind migration</span>
+      </div>
+    </footer>
 
     <script type="module" src="/src/main.js"></script>
   </body>
