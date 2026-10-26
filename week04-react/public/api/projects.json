@@ -1,0 +1,38 @@
+[
+  {
+    "id": "p-responsive-portfolio",
+    "title": "Responsive Portfolio",
+    "description": "Create a polished portfolio with reusable components and responsive layouts.",
+    "category": "Frontend",
+    "status": "active",
+    "dueDate": "2026-11-09",
+    "progress": 72
+  },
+  {
+    "id": "p-weather-dashboard",
+    "title": "Weather Dashboard",
+    "description": "Fetch remote data, handle loading states, and present forecast information clearly.",
+    "category": "API",
+    "status": "active",
+    "dueDate": "2026-11-20",
+    "progress": 45
+  },
+  {
+    "id": "p-task-manager",
+    "title": "Task Manager",
+    "description": "Build a small CRUD interface with filtering, local storage, and form validation.",
+    "category": "JavaScript",
+    "status": "done",
+    "dueDate": "2026-11-02",
+    "progress": 100
+  },
+  {
+    "id": "p-study-planner",
+    "title": "Study Planner",
+    "description": "Collect exam weeks and weekly study goals in one calm, readable dashboard.",
+    "category": "Design",
+    "status": "active",
+    "dueDate": "2026-12-05",
+    "progress": 20
+  }
+]
