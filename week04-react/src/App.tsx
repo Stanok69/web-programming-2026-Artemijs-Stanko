@@ -5,8 +5,24 @@ import Hero from "./components/Hero";
 import Resources from "./components/Resources";
 import SectionHeading from "./components/SectionHeading";
 import StatCard from "./components/StatCard";
+import type { CurrentWeather, Deadline, LoadState, Project } from "./types";
 
-function App() {
+interface AppProps {
+  projects: LoadState<Project[]>;
+  deadlines: LoadState<Deadline[]>;
+  weather: LoadState<CurrentWeather>;
+  onRetryProjects: () => void;
+  onRetryDeadlines: () => void;
+}
+
+function App({ projects, deadlines, weather }: AppProps) {
+  const activeProjects =
+    projects.status === "success"
+      ? String(projects.data.filter((project) => project.status === "active").length)
+      : projects.status === "loading"
+        ? "…"
+        : "–";
+
   return (
     <>
       <Header userName="Alex Student" userInitials="AZ" course="Web Programming" />
@@ -31,7 +47,7 @@ function App() {
             <StatCard
               index="01"
               label="Active projects"
-              value="3"
+              value={activeProjects}
               note="From your projects"
               tone="positive"
             />
@@ -43,7 +59,25 @@ function App() {
               tone="positive"
             />
             <StatCard index="03" label="Quiz average" value="84%" note="Last 4 quizzes" />
-            <StatCard index="04" label="Rīga now" value="…" note="Loading weather…" />
+            <StatCard
+              index="04"
+              label="Rīga now"
+              value={
+                weather.status === "success"
+                  ? `${Math.round(weather.data.temperature)}°C`
+                  : weather.status === "loading"
+                    ? "…"
+                    : "–"
+              }
+              note={
+                weather.status === "success"
+                  ? `${Math.round(weather.data.windSpeed)} km/h`
+                  : weather.status === "error"
+                    ? "Weather unavailable"
+                    : "Loading weather…"
+              }
+              tone={weather.status === "error" ? "danger" : "neutral"}
+            />
           </div>
         </section>
 
@@ -88,7 +122,7 @@ function App() {
 
           <div className="grid grid-cols-1 gap-[18px] md:grid-cols-2 lg:grid-cols-3">
             <p className="col-span-full rounded-[18px] border border-line bg-white p-6 text-center text-[13px] font-semibold text-muted">
-              Loading projects…
+              {projects.status}
             </p>
           </div>
         </section>
@@ -105,7 +139,7 @@ function App() {
             </SectionHeading>
 
             <div className="grid gap-1">
-              <p className="px-2 py-[14px] text-[13px] text-muted">Loading deadlines…</p>
+              <p className="px-2 py-[14px] text-[13px] text-muted">{deadlines.status}</p>
             </div>
           </section>
 
