@@ -12,6 +12,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
   laikapstākļiem no Open-Meteo.
 - [`week04-react`](./week04-react) — CampusFlow React versija ar komponentēm un tipizētiem
   props; datu slānis pārnests no 3. nedēļas bez izmaiņām.
+- [`week05-state`](./week05-state) — kontrolēta *Add a project* forma, validācija atsevišķā
+  failā, projekti `App` stāvoklī un saglabāšana ar pašu `useLocalStorage<T>` hook.
 
 ## Dokumentācija
 
@@ -23,6 +25,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
 - [week03 REFLECTION.md](./week03-api/REFLECTION.md)
 - [week04 AI_USAGE.md](./week04-react/AI_USAGE.md)
 - [week04 REFLECTION.md](./week04-react/REFLECTION.md)
+- [week05 AI_USAGE.md](./week05-state/AI_USAGE.md)
+- [week05 REFLECTION.md](./week05-state/REFLECTION.md)
 
 ## Arhīvs
 

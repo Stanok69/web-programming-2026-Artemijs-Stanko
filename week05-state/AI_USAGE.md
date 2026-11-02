@@ -5,40 +5,37 @@
 
 ## Kam es izmantoju mākslīgo intelektu?
 
-- 3. nedēļas statiskā izkārtojuma pārnešanai uz React komponentēm (`Header`, `Hero`,
-  `StatCard`, `ProjectCard`, `DeadlineItem` u.c.).
-- Tipizētu props interfeisu izveidei un `App` datu plūsmas pārveidei uz `LoadState` props.
-- Filtrēšanas, mobilās izvēlnes un laikapstākļu kartītes stāvokļu izstrādei.
-- Kļūdu meklēšanai, pārbaudēm ar DevTools un dokumentācijas sagatavošanai.
+- Kontrolētās formas `AddProjectForm` un `Field` komponentes izveidei.
+- `validation.ts` validācijas funkcijas un `FormValues` tipu pārnešanai no 3. nedēļas.
+- `useLocalStorage<T>` hook izstrādei un `isProjectList` pārbaudes pievienošanai.
+- Kļūdu meklēšanai, pārbaudēm pārlūkā un dokumentācijas sagatavošanai.
 
 ## Kuru kodu vai konfigurāciju būtiskā apjomā ģenerēja mākslīgais intelekts?
 
-- `src/components/` mapes komponentes un `src/App.tsx` struktūru.
-- `src/main.tsx` datu ielādes un `render()` loģiku.
+- `src/components/AddProjectForm.tsx`, `src/components/Field.tsx` un `src/validation.ts`.
+- `src/hooks/useLocalStorage.ts` un izmaiņas `App.tsx` datu plūsmā.
 - `README.md`, `AI_USAGE.md` un `REFLECTION.md` melnrakstus.
 
 ## Kuru kodu vai konfigurāciju es uzrakstīju pats/pati vai būtiski pārveidoju?
 
-- Pārbaudīju, ka `types.ts`, `guards.ts` un `api.ts` ir burtiski tie paši faili kā
-  `week03-api`, un ka `render.ts` nav pārnests.
-- Pārbaudīju, ka izskats paliek tāds pats kā 3. nedēļā: salīdzināju kartīšu izmērus,
-  atstarpes un krāsas ar DevTools.
-- Pārbaudīju, ka forma *Add a project* šonedēļ tiešām nav pievienota.
-- Sakārtoju commit vēsturi pa kontrolpunktiem un pārbaudīju `npm run build` un
-  `npm run lint`.
+- Pārbaudīju, ka `types.ts` un `api.ts` ir tie paši faili kā `week04-react`.
+- Pārbaudīju, ka `guards.ts` ir tikai papildināts ar `isProjectList`, bet vecās funkcijas
+  nav mainītas.
+- Salīdzināju formas izskatu ar 3. nedēļu un pārbaudīju to 375, 768, 1024 un 1280 pikseļu
+  platumā.
+- Sakārtoju commit vēsturi pa kontrolpunktiem un palaidu `npm run build` un `npm run lint`.
 
 ## Viens MI ieteikums, kuru es noraidīju vai izmainīju
 
-MI ieteica datu ielādei izmantot `useEffect` un turēt `LoadState` vērtības `App` iekšpusē.
-Es to noraidīju, jo uzdevumā teikts, ka `useEffect` šonedēļ nav atļauts un ka datus
-`App` jāsaņem kā props. Tāpēc ielāde palika `main.tsx`, kas pēc katra pieprasījuma izsauc
-`render()` un padod `App` jaunu props objektu. `useState` palika tikai filtram, mobilajai
-izvēlnei un paziņojumam.
+MI ieteica `useLocalStorage` iekšā izmantot `useEffect`, lai saglabātu vērtību pēc katras
+izmaiņas. Es to noraidīju, jo uzdevumā `useEffect` šonedēļ ir aizliegts. Tā vietā hook
+sākuma vērtību nolasa vienreiz `useState` funkcijā un raksta tikai savā setterī. Tāpat
+noraidīju `FormEvent` un `as Project[]` pēc `JSON.parse` — formas notikumam izmantoju
+`SubmitEvent` no `react`, bet krātuves datiem — `isProjectList`.
 
 ## Viena lieta, kuru es pārbaudīju pats/pati, nevis vienkārši uzticējos MI atbildei
 
-Pārbaudīju visus 8 gadījumus no uzdevuma 11. sadaļas: lēnu tīklu ar trim ielādes tekstiem,
-bloķētu `projects.json`, `"progress": "50"`, tukšu `[]`, bloķētus laikapstākļus,
-`<b>test</b>` kā tekstu, filtru **Done** pēc termiņu atkārtotas ielādes un konsoli bez React
-brīdinājumiem. Atsevišķi pārbaudīju arī izkārtojumu 375, 768, 1024 un 1280 pikseļu platumā:
-projektu režģim jābūt attiecīgi 1, 2, 3 un 3 kolonnām.
+Pārbaudīju visus 11 jaunos gadījumus no uzdevuma 9. sadaļas. Jo īpaši pārbaudīju bojātu
+`localStorage` ar vērtību `{bad`: lapa turpināja strādāt, rādīja tikai API projektus un
+konsolē nebija kļūdu. Atsevišķi pārbaudīju arī to, ka ielādes laikā poga *Add project* ir
+atspējota un ka ierakstītais teksts paliek pēc laikapstākļu datu atnākšanas.

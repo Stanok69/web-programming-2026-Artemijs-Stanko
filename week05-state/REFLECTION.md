@@ -1,36 +1,37 @@
 # Individuālā refleksija
 
-## 1. Props tipi
+## 1. Kontrolēts lauks
 
-Kad izdzēsu `note` un ierakstīju `tone="green"`, kļūda parādījās nevis pārlūkā, bet
-`npm run build` laikā, jo būvējums sākas ar `tsc -b`. TypeScript teica
-`TS2741: Property 'note' is missing ... but required in type 'StatCardProps'` un
-`TS2322: Type '"green"' is not assignable to type 'StatTone | undefined'`. Pārlūkā šāda
-kļūda nav redzama, jo to pamanīja TypeScript pirms būvējuma. JavaScript React projektā
-šādas kļūdas nebūtu: komponente saņemtu `undefined`, un lapā vienkārši parādītos tukša
-vieta vai nepareizs teksts. Kļūdu pamanītu tikai vēlāk, apskatot lapu.
+Kad *Title* laukam atstāju `value` bez `onChange`, lauks kļuva faktiski tikai lasāms.
+Mēģinot ierakstīt tekstu, laukā nekas neparādījās, un konsolē bija kļūda: *"You provided a
+`value` prop to a form field without an `onChange` handler. This will render a read-only
+field."* Iemesls ir tāds, ka kontrolēta lauka vērtību nosaka React stāvoklis. Bez
+`onChange` stāvoklis nemainās, tāpēc React pēc katra ievades atgriež laukā veco vērtību.
 
-## 2. Kas pārnāca, kas pazuda
+## 2. Stāvoklis nav parasts mainīgais
 
-`types.ts`, `guards.ts` un `api.ts` varēja pārnest bez izmaiņām, jo tajos nav nekā no DOM —
-tikai tipi, pārbaudes funkcijas un `fetch`. Tie nezināja, kā lapa tiek zīmēta. `render.ts`
-bija pretējais: tajā bija `document.createElement` un `replaceChildren`, tāpēc tas bija
-cieši saistīts ar vienu konkrētu HTML struktūru. React to aizstāj ar JSX, un veco
-renderēšanas kodu pārnest vairs nebija jēgas.
+Kad `values.description` mainīju uz vietas un izsaucu `setValues(values)`, laukā, rakstot
+`hello`, joprojām bija tukšs. Tikai pēc tam, kad ierakstīju burtu *Title* laukā, parādījās
+`hello`. Iemesls: `setValues` saņēma to pašu objekta atsauci, tāpēc React nedomāja, ka
+stāvoklis ir mainījies, un nezīmēja komponenti no jauna. Tikai cita lauka izmaiņa izraisīja
+jaunu zīmēšanu, un tajā jau bija redzama mutētā vērtība.
 
-## 3. Funkcija kā prop
+`console.log(values.progress)` uzreiz pēc `update(...)` rādīja veco vērtību: rakstot `42`,
+konsolē parādījās vispirms tukša rinda, tad `4`. Tas nozīmē, ka `setValues` tikai ieplāno
+stāvokļa maiņu, bet pašreizējā zīmēšanā `values` joprojām ir vecais.
 
-`ErrorBox` neizsauc `fetchProjects()` pati, jo tad tā būtu saistīta ar vienu konkrētu datu
-avotu un nevarētu rādīt citu sadaļu kļūdas. Vecākkomponente zina, ko ielādēt, un padod
-tikai funkciju. `onClick={onRetry}` nodod funkciju, ko React izsauks klikšķa laikā.
-`onClick={onRetry()}` izsauc funkciju uzreiz renderēšanas laikā un pogai nodod tās
-rezultātu, tāpēc poga vairs neko nedarītu.
+## 3. Kur dzīvo stāvoklis
 
-## 4. `key` un stāvoklis
+Pievienotos projektus nevarēja glabāt `AddProjectForm`, jo tos vajag divām vietām:
+projektu sarakstam un *Active projects* kartītei. Abām kopīgs vecāks ir `App`, tāpēc
+stāvoklis tiek pacelts uz augšu. Forma tikai nolasa laukus un izsauc `onAdd`. Filtru gan
+nevajag celt uz `App`, jo to izmanto tikai `ProjectSection`; ja tas būtu augstāk, rastos
+lieki props un lieka saistība starp komponentēm.
 
-`project.id` ir stabils, tāpēc React atpazīst vienu un to pašu kartīti arī pēc filtrēšanas.
-Masīva indekss mainās, un React var sajaukt elementus. Kad izņēmu `key`, konsolē parādījās
-brīdinājums *Each child in a list should have a unique "key" prop*, bet `npm run build`
-klusēja, jo `key` nav komponentes props. Filtrs glabājas `ProjectSection` `useState`, un
-jauni `App` props to neizdzēš, jo komponente paliek tajā pašā vietā un netiek izveidota no
-jauna.
+## 4. Pašu hook
+
+`localStorage` var atrasties jebkas — nepareizs JSON, cits tips vai masīvs ar bojātu
+projektu. Tāpēc `useLocalStorage` saturu pārbauda ar `isProjectList`, nevis uzticas tam.
+8. pārbaudē ar vērtību `{bad` lapa strādāja, rādīja tikai API projektus un konsolē nebija
+kļūdu. `useEffect` nav vajadzīgs: hook lasa krātuvi vienreiz, kad `useState` izsauc savu
+funkciju, un raksta tikai tad, kad tiek izsaukts tā setteris.
