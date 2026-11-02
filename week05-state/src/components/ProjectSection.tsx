@@ -8,10 +8,16 @@ import SectionHeading from "./SectionHeading";
 interface ProjectSectionProps {
   projects: LoadState<Project[]>;
   onRetry: () => void;
+  onAdd: (project: Project) => void;
 }
 
-function ProjectSection({ projects, onRetry }: ProjectSectionProps) {
+function ProjectSection({ projects, onRetry, onAdd }: ProjectSectionProps) {
   const [filter, setFilter] = useState<ProjectFilter>("all");
+
+  function handleAdd(project: Project): void {
+    onAdd(project);
+    setFilter("all");
+  }
 
   return (
     <section
@@ -28,7 +34,7 @@ function ProjectSection({ projects, onRetry }: ProjectSectionProps) {
 
       <ProjectList state={projects} filter={filter} onRetry={onRetry} />
 
-      <AddProjectForm disabled={projects.status !== "success"} />
+      <AddProjectForm disabled={projects.status !== "success"} onAdd={handleAdd} />
     </section>
   );
 }

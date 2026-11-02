@@ -1,19 +1,22 @@
 import { useState, type SubmitEvent } from "react";
 import { categories } from "../types";
+import type { Project } from "../types";
 import { EMPTY_FORM, validate } from "../validation";
 import type { FieldName, FormErrors, FormValues } from "../validation";
 import Field from "./Field";
 
 interface AddProjectFormProps {
   disabled: boolean;
+  onAdd: (project: Project) => void;
 }
 
 const inputClass =
   "w-full rounded-[10px] border border-line bg-white px-3 py-2.5 text-[13px] text-ink transition placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 aria-[invalid=true]:border-[#c64444]";
 
-function AddProjectForm({ disabled }: AddProjectFormProps) {
+function AddProjectForm({ disabled, onAdd }: AddProjectFormProps) {
   const [values, setValues] = useState<FormValues>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [message, setMessage] = useState("");
 
   function update(name: FieldName, value: string): void {
     setValues((current) => ({ ...current, [name]: value }));
@@ -26,11 +29,14 @@ function AddProjectForm({ disabled }: AddProjectFormProps) {
 
     if (!result.ok) {
       setErrors(result.errors);
+      setMessage("");
       return;
     }
 
+    onAdd(result.project);
     setErrors({});
     setValues(EMPTY_FORM);
+    setMessage(`"${result.project.title}" added.`);
   }
 
   const descriptionLength = values.description.length;
@@ -159,11 +165,19 @@ function AddProjectForm({ disabled }: AddProjectFormProps) {
             onClick={() => {
               setValues(EMPTY_FORM);
               setErrors({});
+              setMessage("");
             }}
           >
             Clear
           </button>
         </div>
+
+        <p
+          className="mt-3 min-h-[16px] text-[12px] font-semibold text-[#16875b]"
+          role="status"
+        >
+          {message}
+        </p>
       </form>
     </div>
   );

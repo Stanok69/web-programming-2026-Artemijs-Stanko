@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Announcement from "./components/Announcement";
 import DeadlineSection from "./components/DeadlineSection";
 import Footer from "./components/Footer";
@@ -18,6 +19,17 @@ interface AppProps {
   onRetryDeadlines: () => void;
 }
 
+function withLocalProjects(
+  state: LoadState<Project[]>,
+  local: Project[],
+): LoadState<Project[]> {
+  if (state.status !== "success") {
+    return state;
+  }
+
+  return { status: "success", data: [...state.data, ...local] };
+}
+
 function App({
   projects,
   deadlines,
@@ -25,12 +37,20 @@ function App({
   onRetryProjects,
   onRetryDeadlines,
 }: AppProps) {
+  const [localProjects, setLocalProjects] = useState<Project[]>([]);
+
+  const allProjects = withLocalProjects(projects, localProjects);
+
   const activeProjects =
-    projects.status === "success"
-      ? String(projects.data.filter((project) => project.status === "active").length)
-      : projects.status === "loading"
+    allProjects.status === "success"
+      ? String(allProjects.data.filter((project) => project.status === "active").length)
+      : allProjects.status === "loading"
         ? "…"
         : "–";
+
+  function addProject(project: Project): void {
+    setLocalProjects([...localProjects, project]);
+  }
 
   return (
     <>
@@ -57,7 +77,7 @@ function App({
               index="01"
               label="Active projects"
               value={activeProjects}
-              note="From your projects"
+              note="API + your projects"
               tone="positive"
             />
             <StatCard
@@ -72,7 +92,7 @@ function App({
           </div>
         </section>
 
-        <ProjectSection projects={projects} onRetry={onRetryProjects} />
+        <ProjectSection projects={allProjects} onRetry={onRetryProjects} onAdd={addProject} />
 
         <section className="mx-auto grid w-full max-w-[1180px] gap-[18px] px-5 pt-[34px] pb-16 max-sm:px-3.5 min-[960px]:grid-cols-[1.45fr_0.75fr]">
           <DeadlineSection deadlines={deadlines} onRetry={onRetryDeadlines} />
