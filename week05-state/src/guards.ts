@@ -27,6 +27,10 @@ export const isProject = (value: unknown): value is Project => {
   );
 };
 
+export function isProjectList(value: unknown): value is Project[] {
+  return Array.isArray(value) && value.every(isProject);
+}
+
 export const isDeadline = (value: unknown): value is Deadline => {
   if (!isRecord(value)) {
     return false;

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Announcement from "./components/Announcement";
 import DeadlineSection from "./components/DeadlineSection";
 import Footer from "./components/Footer";
@@ -9,7 +8,11 @@ import Resources from "./components/Resources";
 import SectionHeading from "./components/SectionHeading";
 import StatCard from "./components/StatCard";
 import WeatherCard from "./components/WeatherCard";
+import { isProjectList } from "./guards";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import type { CurrentWeather, Deadline, LoadState, Project } from "./types";
+
+const STORAGE_KEY = "campusflow.week05.localProjects";
 
 interface AppProps {
   projects: LoadState<Project[]>;
@@ -37,7 +40,11 @@ function App({
   onRetryProjects,
   onRetryDeadlines,
 }: AppProps) {
-  const [localProjects, setLocalProjects] = useState<Project[]>([]);
+  const [localProjects, setLocalProjects] = useLocalStorage<Project[]>(
+    STORAGE_KEY,
+    [],
+    isProjectList,
+  );
 
   const allProjects = withLocalProjects(projects, localProjects);
 
