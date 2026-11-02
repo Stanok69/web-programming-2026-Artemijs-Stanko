@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { LoadState, Project, ProjectFilter } from "../types";
+import AddProjectForm from "./AddProjectForm";
 import ProjectFilters from "./ProjectFilters";
 import ProjectList from "./ProjectList";
 import SectionHeading from "./SectionHeading";
@@ -26,6 +27,8 @@ function ProjectSection({ projects, onRetry }: ProjectSectionProps) {
       </SectionHeading>
 
       <ProjectList state={projects} filter={filter} onRetry={onRetry} />
+
+      <AddProjectForm disabled={projects.status !== "success"} />
     </section>
   );
 }
