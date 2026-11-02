@@ -1,0 +1,29 @@
+[
+  {
+    "id": "d-tailwind-migration",
+    "title": "Tailwind migration",
+    "course": "Web Programming",
+    "date": "2026-11-06",
+    "time": "23:59",
+    "label": "4 days",
+    "tone": "urgent"
+  },
+  {
+    "id": "d-portfolio-checkpoint",
+    "title": "Portfolio checkpoint",
+    "course": "Web Programming",
+    "date": "2026-11-10",
+    "time": "18:00",
+    "label": "8 days",
+    "tone": "soon"
+  },
+  {
+    "id": "d-weather-dashboard",
+    "title": "Weather Dashboard",
+    "course": "Web Programming",
+    "date": "2026-11-14",
+    "time": "23:59",
+    "label": "12 days",
+    "tone": "later"
+  }
+]
