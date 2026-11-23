@@ -1,156 +1,129 @@
-# CampusFlow — 5. nedēļa: stāvoklis un formas
+# CampusFlow — 6. nedēļa: maršrutēšana un lietotnes struktūra
 
-CampusFlow projekta 5. nedēļas versija. Tā turpina 4. nedēļas React versiju: lapa joprojām
-tiek salikta no komponentēm, un API dati ienāk caur props no `main.tsx`. Šonedēļ atgriežas
-forma *Add a project* — tagad kā **kontrolēta React forma** — un pievienotie projekti
-saglabājas `localStorage` caur pašu uzrakstītu hook `useLocalStorage<T>`.
+CampusFlow 6. nedēļas versija turpina 5. nedēļas darbu: API dati joprojām ienāk caur props
+no `main.tsx`, pievienotie projekti glabājas `App` stāvoklī un `localStorage`. Šonedēļ viena
+garā lapa ir sadalīta atsevišķās lapās ar īstām adresēm, izmantojot **React Router**
+deklaratīvo režīmu.
 
 ## Tehnoloģijas
 
-- **Vite** ar React un TypeScript
-- **React 19**
-- **TypeScript** ar ieslēgtu `strict` režīmu
-- **Tailwind CSS 4** ar `@tailwindcss/vite` spraudni
-- **Oxlint** ar React noteikumiem
-- **Open-Meteo** laikapstākļu API
+- Vite, React 19, TypeScript (`strict`), Tailwind CSS 4, Oxlint
+- **React Router 8** — pakotne `react-router`, nevis `react-router-dom`
+- Open-Meteo laikapstākļu API
 
 ## Palaišana
 
 ```bash
 npm install
 npm run dev
-```
-
-Produkcijas būvējums, tipu pārbaude un lint:
-
-```bash
 npm run build
 npm run lint
-npm run preview
 ```
+
+## Maršruti
+
+| Adrese | Lapa |
+|---|---|
+| `/` | Dashboard: Hero, statistika, 3 tuvākie termiņi, Resources |
+| `/projects` | Visi projekti, filtrs, forma *Add a project* |
+| `/projects/:projectId` | Viena projekta detaļas; id ir adresē |
+| `/deadlines` | Visi termiņi |
+| jebkura cita | 404 lapa |
+
+`App.tsx` atgriež `Routes`/`Route`. Maršruts bez `path` ir kopīgais `Layout` ar `Header`,
+`Outlet` un `Footer`. `index` ir lapa vecāka adresē (`/`), `:projectId` ir mainīga adreses
+daļa, bet `*` ir viss pārējais. `main.tsx` aptin `App` ar `BrowserRouter`.
 
 ## Struktūra
 
 ```text
-week05-state/
-├── index.html
-├── public/api/
-│   ├── projects.json       # 4 API projekti
-│   └── deadlines.json      # 3 termiņi
+week06-router/
+├── public/api/projects.json       # 4 API projekti
+├── public/api/deadlines.json      # 5 termiņi
 ├── src/
-│   ├── main.tsx            # LoadState vērtības, load funkcijas un root.render
-│   ├── App.tsx             # AppProps, localProjects un lapas salikšana
-│   ├── validation.ts       # FormValues, FormErrors, validate()
-│   ├── api.ts              # vienīgā vieta ar fetch (bez izmaiņām)
-│   ├── guards.ts           # isProject / isDeadline / isProjectList
-│   ├── types.ts            # Project, Deadline, CurrentWeather, LoadState (bez izmaiņām)
-│   ├── weather.ts          # WMO koda pārvēršana tekstā (bez izmaiņām)
-│   ├── date.ts             # datuma sadalīšana dienā un mēnesī
-│   ├── index.css           # @import "tailwindcss" un @theme tokeni
-│   ├── hooks/
-│   │   └── useLocalStorage.ts
+│   ├── main.tsx                   # BrowserRouter, LoadState un root.render
+│   ├── App.tsx                    # localProjects, withLocalProjects un Routes
+│   ├── format.ts                  # formatDate, daysUntil, splitDate
+│   ├── projectStyles.ts           # kopīgas krāsu un tekstu kartes
+│   ├── validation.ts, api.ts, guards.ts, types.ts, weather.ts
+│   ├── hooks/useLocalStorage.ts
+│   ├── pages/
+│   │   ├── DashboardPage.tsx
+│   │   ├── ProjectsPage.tsx
+│   │   ├── ProjectDetailsPage.tsx
+│   │   ├── DeadlinesPage.tsx
+│   │   └── NotFoundPage.tsx
 │   └── components/
-│       ├── AddProjectForm.tsx
-│       ├── Field.tsx
-│       ├── Announcement.tsx
-│       ├── DeadlineItem.tsx
-│       ├── DeadlineSection.tsx
-│       ├── EmptyBox.tsx
-│       ├── ErrorBox.tsx
-│       ├── Footer.tsx
-│       ├── Header.tsx
-│       ├── Hero.tsx
-│       ├── LoadingBox.tsx
-│       ├── ProjectCard.tsx
-│       ├── ProjectFilters.tsx
-│       ├── ProjectList.tsx
-│       ├── ProjectSection.tsx
-│       ├── Resources.tsx
-│       ├── SectionHeading.tsx
-│       ├── StatCard.tsx
-│       └── WeatherCard.tsx
-├── vite.config.ts
-├── tsconfig.app.json
-├── tsconfig.node.json
+│       ├── Layout.tsx un pārējie 5. nedēļas komponenti
+│       ├── Header.tsx (NavLink)
+│       ├── Hero.tsx, ProjectCard.tsx, DeadlineSection.tsx
+│       └── DeadlineItem.tsx
 ├── AI_USAGE.md
 └── REFLECTION.md
 ```
 
-## Stāvoklis un props
+## Datu plūsma
 
-- `App` saņem `projects`, `deadlines` un `weather` kā `LoadState<...>`, kā arī
-  `onRetryProjects` un `onRetryDeadlines`.
-- `App` glabā pievienotos projektus ar
-  `useLocalStorage<Project[]>("campusflow.week05.localProjects", [], isProjectList)`.
-- `withLocalProjects()` sapludina API projektus ar pievienotajiem; sapludināto rezultātu
-  saņem gan `ProjectSection`, gan *Active projects* kartīte.
-- `ProjectSection` glabā filtru (`useState<ProjectFilter>`), saņem `onAdd` un pēc
-  pievienošanas pārslēdz filtru uz **All**.
-- `ProjectList` saņem `state`, `filter` un `onRetry`; tas pārvalda `loading`, `error` un
-  `success` stāvokļus ar pilnu `switch` un `never` pārbaudi.
-- `AddProjectForm` saņem `disabled` un `onAdd`. Forma pati projektu neglabā — tā izsauc
-  `onAdd`, un lēmumu par glabāšanu pieņem `App`.
-- `Field` saņem `label`, `htmlFor`, `error`, neobligātu `hint` un `children`.
-- `WeatherCard` saņem `weather: LoadState<CurrentWeather>` un izmanto `StatCard`.
+- `App` saņem `projects`, `deadlines` un `weather` kā `LoadState<...>`, kā arī abas
+  `onRetry...` funkcijas.
+- `useLocalStorage<Project[]>("campusflow.week06.localProjects", [], isProjectList)` glabā
+  pievienotos projektus; `withLocalProjects()` tos sapludina ar API projektiem.
+- `DashboardPage` iegūst gatavu *Active projects* skaitli kā tekstu, rāda Hero, četras
+  kartītes, `DeadlineSection` ar `limit={3}` un Resources.
+- `ProjectsPage` rāda `ProjectSection` ar filtru un kontrolēto formu.
+- `DeadlinesPage` rāda `DeadlineSection` bez limita — visi 5 termiņi, virsraksts
+  *All deadlines*, nav saites *See all*.
+- `ProjectDetailsPage` saņem `projects` un `onRetry`, nolasa `projectId` ar `useParams()`
+  un projektu atrod ar `find()`.
 
-## Forma un validācija
+## Saites
 
-`src/validation.ts` satur `FormValues`, `FormErrors`, `EMPTY_FORM` un tīro funkciju
-`validate(values)`. Tā atgriež `ValidationResult` ar lauku `ok`, kas sašaurina tipu:
+Galvenē ir tikai trīs `NavLink` saites: *Dashboard* (`/`, ar `end`), *Projects*
+(`/projects`) un *Deadlines* (`/deadlines`). *Projects* paliek aktīva arī detaļu lapā.
+Logotips ir `Link to="/"` un aizver mobilo izvēlni. Hero *View projects* veda uz
+`/projects`, bet *Open resources* paliek `<a href="#resources">` — tas ir enkurs tajā pašā
+lapā. `ProjectCard` ved uz `/projects/${project.id}`, `DeadlineSection` saite *See all*
+ved uz `/deadlines`. Citas CampusFlow lapas netiek atvērtas ar `<a href="/...">`, tāpēc
+pāreja notiek bez pārlādes un API pieprasījumi neatkārtojas.
 
-- nosaukums pēc `trim()` vismaz 3 simboli;
-- apraksts pēc `trim()` no 10 līdz 200 simboliem;
-- kategorija no `categories` saraksta;
-- datums formātā `YYYY-MM-DD`;
-- progress vesels skaitlis no 0 līdz 100; ja 100, statuss ir `"done"`.
+## Projekta detaļas
 
-Visi pieci lauki ir kontrolēti: katram ir `value` un `onChange`. Kļūdas parādās zem sava
-lauka, laukam ir `aria-invalid`, bet ziņa par pievienošanu atrodas elementā ar
-`role="status"`. Apraksta simbolu skaitītājs tiek aprēķināts katrā zīmēšanā no
-`values.description` — tam nav sava `useState`.
+Secība: atpakaļ saite `← All projects`, pēc tam:
 
-## `useLocalStorage<T>`
+1. `loading` → `LoadingBox text="Loading project…"`;
+2. `error` → `ErrorBox` ar *Try again*;
+3. `success`, bet nav atrasts → `EmptyBox` *Project not found* ar meklēto id;
+4. detaļas: kategorija, statuss, nosaukums, apraksts, termiņš, progress.
 
-Hook atgriež `readonly [T, (next: T) => void]`. Sākuma vērtību tas nolasa vienreiz ar
-`useState` funkciju, pārbauda ar `isValid` (mūsu gadījumā `isProjectList`) un bojātu vai
-nepareizu saturu aizstāj ar `initialValue`. Setter vispirms izsauc `setValue(next)` un pēc
-tam ieraksta `localStorage.setItem(key, JSON.stringify(next))`. Abas darbības ir `try/catch`
-iekšā, tāpēc bloķēta vai pilna krātuve lapu nesalauž. `useEffect` šim hook nav vajadzīgs.
+Termiņa teksts nāk no `format.ts`: `Submitted Nov 9`, `Due Nov 18 — in 16 days` vai
+`Overdue since ...`. `projectId` ir `string | undefined`, salīdzināšanai ar `===` tas
+netraucē, un `as` netiek lietots.
 
-## Tipu drošība
+## 404 lapa
 
-- `strict: true`, bez `any` un bez `@ts-ignore` / `@ts-expect-error`.
-- API un `localStorage` dati tiek pārbaudīti ar type guard funkcijām; `as` netiek lietots.
-- `fetch` tiek izsaukts tikai `src/api.ts`, `localStorage` — tikai `src/hooks/useLocalStorage.ts`.
-- Nav `useEffect`, `document.querySelector`, `createElement`, `innerHTML` vai
-  `dangerouslySetInnerHTML`.
-- Stāvoklis netiek mainīts uz vietas: tiek veidoti jauni objekti un masīvi.
-- Katram saraksta elementam ir stabils `key`.
+`NotFoundPage` izmanto `useLocation()`, parāda nepareizo `pathname` kā tekstu un piedāvā
+`Link to="/"`. Tā atrodas `Layout` iekšpusē, tāpēc galvene un kājene ir redzamas.
 
-## Pārbaudes
+## Tipu drošība un pārbaudes
 
-Pārbaudīti 4. nedēļas gadījumi un 11 jaunie 5. nedēļas gadījumi:
-
-- tukša forma rāda piecas kļūdas un neko nepievieno;
-- atstarpes nosaukumā un `50.5` / `-1` progresā tiek noraidīti;
-- derīgs projekts parādās saraksta beigās, *Active projects* skaits mainās, ziņa parādās;
-- pēc pārlādes projekts paliek, un `localStorage` ir atslēga
-  `campusflow.week05.localProjects`;
-- projekts ar progresu 100 kļūst par *Done* un aktīvo skaitu nepalielina;
-- filtrs **Active** pēc pievienošanas pārslēdzas uz **All**;
-- ielādes un kļūdas laikā poga *Add project* ir atspējota;
-- bojāts `localStorage` (`{bad`) netraucē lapai un konsolē nav kļūdu;
-- ievadītais teksts paliek pēc laikapstākļu pārzīmēšanas;
-- `<img src=x onerror=alert(1)>` kartītē redzams kā teksts;
-- 201 simbols aprakstā iekrāso skaitītāju sarkanu un dod kļūdu.
+- Nav `any`, `@ts-ignore`, `useEffect`, `createBrowserRouter`, `loader`, `useLoaderData`,
+  `react-router-dom`, `innerHTML`, `dangerouslySetInnerHTML` vai `querySelector`.
+- `as` nav izmantots ne API, ne localStorage, ne adreses parametru datiem.
+- `fetch` ir tikai `api.ts`, `localStorage` — tikai `hooks/useLocalStorage.ts`.
+- `src/types.ts`, `src/api.ts` un `src/guards.ts` ir tādi paši kā `week05-state`.
+- Pārbaudīti visi 5. nedēļas gadījumi un visi 15 jaunie 6. nedēļas gadījumi, tostarp
+  tiešās adreses ar F5, navigācija bez pārlādes, back/forward, aktīvā saite, 3/5 termiņi,
+  projekta detaļas un nezināms id, ielādes/kļūdas stāvokļi, pašu projekts pēc pārlādes,
+  skaitītājs, 404, HTML kā teksts, 390 px izvēlne un teksta saglabāšana pēc atkārtotas
+  `main.tsx` zīmēšanas.
 
 ## Kontrolpunktu vēsture
 
-1. `Create week05-state from week04-react`
-2. `Add controlled Add a project form`
-3. `Validate the form and show field errors`
-4. `Keep added projects in App state`
-5. `Persist added projects with useLocalStorage`
+1. `Create week06-router from week05-state`
+2. `Add React Router and a shared Layout`
+3. `Split the dashboard into pages`
+4. `Add project details with a URL parameter`
+5. `Add the 404 page and connect all links`
 6. Dokumentācija
 
 ## Autors

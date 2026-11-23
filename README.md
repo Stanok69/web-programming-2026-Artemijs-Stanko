@@ -14,6 +14,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
   props; datu slānis pārnests no 3. nedēļas bez izmaiņām.
 - [`week05-state`](./week05-state) — kontrolēta *Add a project* forma, validācija atsevišķā
   failā, projekti `App` stāvoklī un saglabāšana ar pašu `useLocalStorage<T>` hook.
+- [`week06-router`](./week06-router) — CampusFlow sadalīts lapās ar React Router: kopīgs
+  `Layout`, maršruti `/`, `/projects`, `/projects/:projectId`, `/deadlines` un 404 lapa.
 
 ## Dokumentācija
 
@@ -27,6 +29,8 @@ Web programmēšanas kursa semestra darbu repozitorijs.
 - [week04 REFLECTION.md](./week04-react/REFLECTION.md)
 - [week05 AI_USAGE.md](./week05-state/AI_USAGE.md)
 - [week05 REFLECTION.md](./week05-state/REFLECTION.md)
+- [week06 AI_USAGE.md](./week06-router/AI_USAGE.md)
+- [week06 REFLECTION.md](./week06-router/REFLECTION.md)
 
 ## Arhīvs
 
