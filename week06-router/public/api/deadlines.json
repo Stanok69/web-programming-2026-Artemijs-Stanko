@@ -1,0 +1,47 @@
+[
+  {
+    "id": "d-tailwind-migration",
+    "title": "Tailwind migration",
+    "course": "Web Programming",
+    "date": "2026-11-24",
+    "time": "23:59",
+    "label": "1 day",
+    "tone": "urgent"
+  },
+  {
+    "id": "d-portfolio-checkpoint",
+    "title": "Portfolio checkpoint",
+    "course": "Web Programming",
+    "date": "2026-11-28",
+    "time": "18:00",
+    "label": "5 days",
+    "tone": "soon"
+  },
+  {
+    "id": "d-weather-dashboard",
+    "title": "Weather Dashboard",
+    "course": "Web Programming",
+    "date": "2026-12-02",
+    "time": "23:59",
+    "label": "9 days",
+    "tone": "later"
+  },
+  {
+    "id": "d-router-checkpoint",
+    "title": "Router checkpoint",
+    "course": "Web Programming",
+    "date": "2026-12-09",
+    "time": "18:00",
+    "label": "16 days",
+    "tone": "later"
+  },
+  {
+    "id": "d-final-project",
+    "title": "Final project",
+    "course": "Web Programming",
+    "date": "2026-12-16",
+    "time": "23:59",
+    "label": "23 days",
+    "tone": "later"
+  }
+]
