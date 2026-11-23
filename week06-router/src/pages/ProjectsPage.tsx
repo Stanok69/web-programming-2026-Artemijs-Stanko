@@ -1,9 +1,14 @@
-function ProjectsPage() {
-  return (
-    <section className="mx-auto w-full max-w-[1180px] px-5 pt-[34px] pb-16 max-sm:px-3.5">
-      <h1 className="text-[32px] font-bold tracking-[-0.035em]">Projects</h1>
-    </section>
-  );
+import ProjectSection from "../components/ProjectSection";
+import type { LoadState, Project } from "../types";
+
+interface ProjectsPageProps {
+  projects: LoadState<Project[]>;
+  onRetry: () => void;
+  onAddProject: (project: Project) => void;
+}
+
+function ProjectsPage({ projects, onRetry, onAddProject }: ProjectsPageProps) {
+  return <ProjectSection projects={projects} onRetry={onRetry} onAdd={onAddProject} />;
 }
 
 export default ProjectsPage;
