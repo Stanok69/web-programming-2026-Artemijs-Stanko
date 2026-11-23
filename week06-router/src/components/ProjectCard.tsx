@@ -1,33 +1,11 @@
-import { formatDate } from "../date";
-import type { Category, Project, ProjectStatus } from "../types";
+import { Link } from "react-router";
+import { formatDate } from "../format";
+import { categoryBadge, categoryBar, statusBadge, statusLabel } from "../projectStyles";
+import type { Project } from "../types";
 
 interface ProjectCardProps {
   project: Project;
 }
-
-const categoryBadge: Record<Category, string> = {
-  Frontend: "bg-[#f0edff] text-[#6352ed]",
-  API: "bg-[#eaf3ff] text-[#2f78d6]",
-  JavaScript: "bg-[#e9f8f2] text-[#16875b]",
-  Design: "bg-[#fff5de] text-[#aa7416]",
-};
-
-const categoryBar: Record<Category, string> = {
-  Frontend: "bg-brand",
-  API: "bg-[#3788ff]",
-  JavaScript: "bg-[#1ca76f]",
-  Design: "bg-[#c99a2e]",
-};
-
-const statusBadge: Record<ProjectStatus, string> = {
-  active: "bg-[#eef6ff] text-[#3788ff]",
-  done: "bg-[#edf9f4] text-[#1ca76f]",
-};
-
-const statusLabel: Record<ProjectStatus, string> = {
-  active: "Active",
-  done: "Done",
-};
 
 function ProjectCard({ project }: ProjectCardProps) {
   const dueLabel =
@@ -66,12 +44,12 @@ function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <div className="mt-[18px] flex items-center justify-between gap-3">
-        <a
+        <Link
           className="inline-block rounded text-xs font-extrabold text-brand transition hover:text-brand-dark group-hover:translate-x-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-          href="#"
+          to={`/projects/${project.id}`}
         >
           {project.status === "done" ? "View submission →" : "Open project →"}
-        </a>
+        </Link>
       </div>
     </article>
   );

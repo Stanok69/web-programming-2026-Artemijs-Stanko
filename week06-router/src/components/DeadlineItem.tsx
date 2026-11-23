@@ -1,4 +1,4 @@
-import { splitDate } from "../date";
+import { splitDate } from "../format";
 import type { Deadline, DeadlineTone } from "../types";
 
 interface DeadlineItemProps {
@@ -24,7 +24,7 @@ function DeadlineItem({ deadline }: DeadlineItemProps) {
       <div className="grid gap-[3px]">
         <strong className="text-[13px]">{deadline.title}</strong>
         <span className="text-[11px] text-muted">
-          {deadline.course} · {deadline.time}
+          {deadline.course} · {date.month} {date.day}, {deadline.time}
         </span>
       </div>
 

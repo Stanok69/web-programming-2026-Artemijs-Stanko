@@ -80,7 +80,10 @@ function App({
             />
           }
         />
-        <Route path="projects/:projectId" element={<ProjectDetailsPage />} />
+        <Route
+          path="projects/:projectId"
+          element={<ProjectDetailsPage projects={allProjects} onRetry={onRetryProjects} />}
+        />
         <Route
           path="deadlines"
           element={<DeadlinesPage deadlines={deadlines} onRetry={onRetryDeadlines} />}
