@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router";
 
 interface HeaderProps {
   userName: string;
@@ -6,8 +7,28 @@ interface HeaderProps {
   course: string;
 }
 
-const navLinkClass =
-  "rounded-[10px] px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-[#f1f3f8] hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 data-[active=true]:bg-[#f1f3f8] data-[active=true]:text-ink";
+interface NavItem {
+  label: string;
+  to: string;
+  end?: boolean;
+}
+
+const navItems: NavItem[] = [
+  { label: "Dashboard", to: "/", end: true },
+  { label: "Projects", to: "/projects" },
+  { label: "Deadlines", to: "/deadlines" },
+];
+
+const navLink =
+  "rounded-[10px] px-3 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2";
+
+function navClass({ isActive }: { isActive: boolean }): string {
+  return `${navLink} ${
+    isActive
+      ? "bg-[#f1f3f8] text-ink"
+      : "text-muted transition hover:bg-[#f1f3f8] hover:text-ink"
+  }`;
+}
 
 function Header({ userName, userInitials, course }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,15 +40,16 @@ function Header({ userName, userInitials, course }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-line/90 bg-white/90 backdrop-blur-md max-sm:relative">
       <div className="mx-auto flex min-h-[72px] w-full max-w-[1180px] items-center gap-7 px-5 max-sm:px-3.5">
-        <a
+        <Link
           className="inline-flex items-center gap-2.5 rounded-lg font-extrabold tracking-[-0.02em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-          href="#"
+          to="/"
+          onClick={closeMenu}
         >
           <span className="grid size-[38px] place-items-center rounded-xl bg-linear-to-br from-brand to-[#8a7dff] text-[13px] text-white shadow-[0_8px_20px_rgba(109,93,252,0.28)]">
             CF
           </span>
           <span>CampusFlow</span>
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -47,24 +69,17 @@ function Header({ userName, userInitials, course }: HeaderProps) {
           className="absolute inset-x-5 top-[72px] z-50 hidden flex-col gap-1 rounded-2xl border border-line bg-white p-2.5 shadow-card data-[open=true]:flex md:static md:inset-auto md:ml-[18px] md:flex md:flex-row md:items-center md:gap-1.5 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
           data-open={isMenuOpen ? "true" : "false"}
         >
-          <a
-            className={navLinkClass}
-            data-active="true"
-            aria-current="page"
-            href="#"
-            onClick={closeMenu}
-          >
-            Dashboard
-          </a>
-          <a className={navLinkClass} href="#projects" onClick={closeMenu}>
-            Projects
-          </a>
-          <a className={navLinkClass} href="#deadlines" onClick={closeMenu}>
-            Deadlines
-          </a>
-          <a className={navLinkClass} href="#resources" onClick={closeMenu}>
-            Resources
-          </a>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.label}
+              className={navClass}
+              to={item.to}
+              end={item.end}
+              onClick={closeMenu}
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2.5 md:ml-auto">
