@@ -19,7 +19,6 @@ Web programmēšanas kursa semestra darbu repozitorijs.
 
 ## Dokumentācija
 
-- [Darba žurnāls](./DARBU_ZURNALS.md)
 - [week01 AI_USAGE.md](./week01-tailwind/AI_USAGE.md)
 - [week01 REFLECTION.md](./week01-tailwind/REFLECTION.md)
 - [week02 AI_USAGE.md](./week02-typescript/AI_USAGE.md)
